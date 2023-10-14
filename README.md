@@ -57,7 +57,9 @@ You can use the Game Store System to manage games, players, and administrators w
 5- Review and Rate Games: Players can leave reviews and ratings for games using the Review and Rate classes.
 
 ## Contributing
-By Mahmoud Matar, ID: 900193415, Section: 1
+By:
+- Mahmoud Matar, ID: 900193415, Section: 1
+- ChatGPT: https://chat.openai.com/share/158c3abb-0a59-40e0-a986-a05df652d274
 
 Clone the repository to your local machine:
 

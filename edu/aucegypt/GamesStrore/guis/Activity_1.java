@@ -8,7 +8,8 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ActivityOne 
+//Welcome Activity
+public class Activity_1 
 {
     public static void WelcomeMsg() {
         // Create a JFrame for the welcome message
@@ -49,7 +50,7 @@ public class ActivityOne
         QuitButton.setActionCommand("Button3");
 
         // Create a single ActionListener
-        ActionListener buttonHandler = new ButtonHandler();
+        ActionListener buttonHandler = new ButtonHandler(mainFrame);
 
         // Add the ActionListener to all buttons
         loginButton.addActionListener(buttonHandler);
@@ -79,12 +80,18 @@ public class ActivityOne
         @Override
         public void actionPerformed(ActionEvent e) {
             welcomeFrame.dispose(); // Close the welcome frame
-            ActivityOne.openMainFrame(); // Open the main frame with buttons
+            Activity_1.openMainFrame(); // Open the main frame with buttons
         }
     }
 
     static class ButtonHandler implements ActionListener 
     {
+        private JFrame welcomeFrame;
+
+        public ButtonHandler(JFrame welcomeFrame) {
+            this.welcomeFrame = welcomeFrame;
+        }
+
         @Override
         public void actionPerformed(ActionEvent e) {
             String command = e.getActionCommand();
@@ -96,7 +103,8 @@ public class ActivityOne
                     break;
                 case "Button2":
                     System.out.println("Button 2 was clicked.");
-                    // Add your specific action for Button 2 here.
+                    welcomeFrame.dispose();
+                    Activity_2.openSignUpFrame();
                     break;
                 case "Button3":
                     System.out.println("Button 3 was clicked.");

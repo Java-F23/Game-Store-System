@@ -1,11 +1,12 @@
 package edu.aucegypt.GamesStrore.main;
 
-import edu.aucegypt.GamesStrore.guis.ActivityOne;
+import edu.aucegypt.GamesStrore.guis.Activity_1;
 
 public class GamesStrore_Sys_GUI 
 {
     public static void main(String[] args) 
     {
-        ActivityOne.WelcomeMsg();
+        //Welcome Page
+        Activity_1.WelcomeMsg();
     }
 }

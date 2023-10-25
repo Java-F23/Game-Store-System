@@ -9,6 +9,9 @@ public class Strings
     public static String welcomeLabel = "Welcome to MaGaMa";
     public static String loginButton = "Login";
     public static String signupButton = "Signup";
-    public static String quitButton = "Quit";
+    public static String quitButton = "Exit";
+
+    //Activity 2
+    
     
 }

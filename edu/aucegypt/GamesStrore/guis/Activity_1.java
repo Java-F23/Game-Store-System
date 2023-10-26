@@ -99,7 +99,8 @@ public class Activity_1
             switch (command) {
                 case "Button1":
                     System.out.println("Button 1 was clicked.");
-                    // Add your specific action for Button 1 here.
+                    welcomeFrame.dispose();
+                    Activity_3.openLogInFrame();
                     break;
                 case "Button2":
                     System.out.println("Button 2 was clicked.");

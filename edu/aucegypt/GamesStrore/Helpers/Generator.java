@@ -124,4 +124,8 @@ public class Generator
         GamesDB.setGameList(list);
     }
     
+    public static void msgGenerator()
+    {
+        
+    }
 }

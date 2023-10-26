@@ -19,7 +19,7 @@ public class GUI
         return credentials;
     }
 
-    public static boolean checkCheckBos(JCheckBox checkBox) {
+    public static boolean checkCheckBox(JCheckBox checkBox) {
 
         System.out.println(checkBox.isSelected());
         return checkBox.isSelected();

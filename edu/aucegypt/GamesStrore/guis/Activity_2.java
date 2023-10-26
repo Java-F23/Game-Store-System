@@ -8,8 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 import edu.aucegypt.GamesStrore.Helpers.GUI;
 import edu.aucegypt.GamesStrore.resources.Strings;
@@ -60,6 +63,7 @@ public class Activity_2
         // Add action listener to the Cancel button
         cancelButton.addActionListener(buttonHandler);
 
+
         // Add components to the frame
         signUpFrame.add(userTypeLabel);
         signUpFrame.add(userTypeCheckBox);
@@ -98,11 +102,18 @@ public class Activity_2
                     System.out.println("Button 1 was clicked.");
 
                     String[] credentials = GUI.extractCredentials(usernameField,passwordField,emailField);
-                    boolean isPlayer = GUI.checkCheckBos(userTypeCheckBox);
+                    boolean isPlayer = GUI.checkCheckBox(userTypeCheckBox);
                     
-                    signUp(credentials, isPlayer);
-                    signUpFrame.dispose();
-                    Activity_1.openMainFrame();
+                    if(signUp(credentials, isPlayer))
+                    {
+                        signUpFrame.dispose();
+                        reDirectMsg();
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Matching or Invalid Credentials, re-enter", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
 
                     break;
                 case "Button2":
@@ -118,20 +129,74 @@ public class Activity_2
         }
     }
 
-    private static void signUp(String[] credentials,boolean isPlayer )
+    private static boolean signUp(String[] credentials,boolean isPlayer )
     {
+        String result;
         if(isPlayer)
         {
             Player player = new Player(credentials[0],credentials[1],credentials[2]);
-            player.signUp();
+
+             result = player.signUp();
+
+            
             System.out.println("player signedup");
 
         }
         else
         {
             Administrator administrator = new Administrator(credentials[0],credentials[1],credentials[2]);
-            administrator.signUp();
+             result = administrator.signUp();
             System.out.println("admin signedup");
+        }
+
+        if (result.equals("invalid credentials") || result.equals("matching credentials"))
+        {
+            return false;
+        }
+
+        if(result.equals("successful signup"))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private static void reDirectMsg()
+    {
+        // Create a JFrame for the welcome message
+        JFrame reDirectingFrame = new JFrame("Redirecting");
+        reDirectingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Create a JLabel for the welcome message
+        JLabel label1 = new JLabel("Please wait.Redirecting.....");
+        label1.setHorizontalAlignment(SwingConstants.CENTER);
+
+        reDirectingFrame.add(label1);
+
+        // Set the size and make the welcome frame visible
+        reDirectingFrame.setSize(300, 100);
+        reDirectingFrame.setLocationRelativeTo(null);
+        reDirectingFrame.setVisible(true);
+
+        // Schedule a Timer to close the welcome frame after 10 seconds
+        ActionListener closeDirectingListener = new CloseDirectingListener(reDirectingFrame);
+        Timer timer = new Timer(2000, closeDirectingListener);
+        timer.setRepeats(false); // Run the timer only once
+        timer.start();
+    }
+
+    static class CloseDirectingListener implements ActionListener 
+    {
+        private JFrame signUpFrame;
+
+        public CloseDirectingListener(JFrame signUpFrame) {
+            this.signUpFrame = signUpFrame;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            signUpFrame.dispose(); // Close the welcome frame
+            Activity_1.openMainFrame(); // Open the main frame with buttons
         }
     }
 

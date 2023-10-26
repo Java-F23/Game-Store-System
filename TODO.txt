@@ -10,11 +10,7 @@ that take the msg and timer to notify the user with different things
 
 **Activity 2**
 - Verify the credientails of the user input from the gui (Verify the strings are valied, not the DB)
-- pop up dialog in case of failing 
-- re-directing pop up frame
 
 **Activity 3**
 - Verify the credientails of the user input from the gui (Verify the strings are valied, not the DB)
-- pop up dialog in case of failing 
-- re-directing pop up frame
 

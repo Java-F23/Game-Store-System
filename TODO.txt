@@ -1,0 +1,6 @@
+**General**
+- make the a pop up dialog(the one in main) utlitze method in the helper
+that take the msg and timer to notify the user with different things
+
+**Activity 2**
+- Verify the credientails of the user input from the gui

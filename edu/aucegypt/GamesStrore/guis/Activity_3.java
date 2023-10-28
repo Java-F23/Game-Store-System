@@ -27,6 +27,12 @@ public class Activity_3
     private static JPasswordField passwordField;
     private static JTextField emailField;
 
+    private static boolean isPlayer;
+    private static String[] credentials;
+
+    private static Player player;
+    private static Administrator administrator;
+
     
     public static void openLogInFrame() {
         //Create the main frame
@@ -99,10 +105,10 @@ public class Activity_3
                 case "Button1":
                     System.out.println("Button 1 was clicked.");
 
-                    String[] credentials = GUI.extractCredentials(usernameField,passwordField,emailField);
-                    boolean isPlayer = GUI.checkCheckBox(userTypeCheckBox);
+                    credentials = GUI.extractCredentials(usernameField,passwordField,emailField);
+                    isPlayer = GUI.checkCheckBox(userTypeCheckBox);
                     
-                    if(logIn(credentials, isPlayer))
+                    if(logIn())
                     {
                         logInFrame.dispose();
                         reDirectMsg();
@@ -131,11 +137,11 @@ public class Activity_3
         
     }
 
-    private static boolean logIn(String[] credentials,boolean isPlayer )
+    private static boolean logIn()
     {
         if(isPlayer)
         {
-            Player player = new Player(credentials[0],credentials[1],credentials[2]);
+            player = new Player(credentials[0],credentials[1],credentials[2]);
 
             if(player.logIn())
             {
@@ -152,7 +158,7 @@ public class Activity_3
         }
         else
         {
-            Administrator administrator = new Administrator(credentials[0],credentials[1],credentials[2]);
+            administrator = new Administrator(credentials[0],credentials[1],credentials[2]);
 
             if(administrator.logIn())
             {
@@ -203,9 +209,17 @@ public class Activity_3
         @Override
         public void actionPerformed(ActionEvent e) {
             loginFrame.dispose(); // Close the welcome frame
-            // to be changed
-            Activity_1.openMainFrame(); // Open the main frame with buttons
-            // to be changed
+
+            if(isPlayer)
+            {
+                Activity_1.openMainFrame(); // Open the main frame with buttons
+                // to be changed
+            }
+            else
+            {
+                Activity_4.openAdminWindow(administrator);
+            }
+            
         }
     }
 }

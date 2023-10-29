@@ -4,7 +4,10 @@ import javax.swing.*;
 
 import edu.aucegypt.GamesStrore.resources.Strings;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -37,37 +40,68 @@ public class Activity_1
         // Create a new JFrame for the main frame
         JFrame mainFrame = new JFrame(Strings.welcomeLabel + "!");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setLayout(new FlowLayout());
-
+        mainFrame.setLayout(new BoxLayout(mainFrame.getContentPane(), BoxLayout.Y_AXIS));
+    
         // Create buttons with unique ActionCommands
         JButton loginButton = new JButton(Strings.loginButton);
         loginButton.setActionCommand("Button1");
-
+    
         JButton signupButton = new JButton(Strings.signupButton);
         signupButton.setActionCommand("Button2");
-
+    
         JButton QuitButton = new JButton(Strings.quitButton);
         QuitButton.setActionCommand("Button3");
-
+    
         // Create a single ActionListener
         ActionListener buttonHandler = new ButtonHandler(mainFrame);
-
+    
         // Add the ActionListener to all buttons
         loginButton.addActionListener(buttonHandler);
         signupButton.addActionListener(buttonHandler);
         QuitButton.addActionListener(buttonHandler);
-
-        // Add buttons to the frame
-        mainFrame.add(loginButton);
-        mainFrame.add(signupButton);
-        mainFrame.add(QuitButton);
-
+    
+        // Create a panel to hold the buttons
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+    
+        // Add vertical spacing
+        buttonPanel.add(Box.createVerticalStrut(20));
+    
+        // Add login button
+        buttonPanel.add(loginButton);
+        
+        // Add vertical spacing
+        buttonPanel.add(Box.createVerticalStrut(10));
+    
+        // Add signup button
+        buttonPanel.add(signupButton);
+    
+        // Add vertical spacing
+        buttonPanel.add(Box.createVerticalStrut(10));
+    
+        // Add Quit button
+        buttonPanel.add(QuitButton);
+    
+        // Add vertical spacing
+        buttonPanel.add(Box.createVerticalStrut(20));
+    
+        // Create a panel to hold the button panel and center it vertically
+        JPanel centerPanel = new JPanel(new GridBagLayout());
+        centerPanel.add(buttonPanel);
+    
+        // Add the center panel to the main frame
+        mainFrame.add(centerPanel, BorderLayout.CENTER);
+    
         mainFrame.pack();
-        // Set the size and make the main frame visible
-        mainFrame.setSize(800, 800);
+    
+        // Set the size, make the main frame non-resizable, and center it on the screen
+        mainFrame.setSize(350, 200);
+        mainFrame.setResizable(false);
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setVisible(true);
     }
+    
+    
 
     static class CloseWelcomeListener implements ActionListener 
     {

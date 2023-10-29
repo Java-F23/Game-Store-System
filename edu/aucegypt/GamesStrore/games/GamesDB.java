@@ -441,6 +441,7 @@ public class GamesDB
     public static boolean addGame(Game game)
     {
         boolean status = false;
+        boolean found = false;
 
         try
         {
@@ -474,7 +475,16 @@ public class GamesDB
             return false;
         }
 
-        if(GamesDB.gameList.contains(game))
+        for(Game G : GamesDB.gameList)
+        {
+            if(G.getGameName().equals(game.getGameName()))
+            {
+                found = true;
+                break;
+            }
+        }
+
+        if(found)
         {
             System.out.println("game is already in the database");
             status = false;
@@ -488,6 +498,21 @@ public class GamesDB
             status = true;
             
         }
+
+        // if(GamesDB.gameList.contains(game))
+        // {
+        //     System.out.println("game is already in the database");
+        //     status = false;
+        // }
+        // else
+        // {
+            
+            
+        //     GamesDB.gameList.add(game);
+        //     System.out.println("game added to database");
+        //     status = true;
+            
+        // }
         return status;
     }
 

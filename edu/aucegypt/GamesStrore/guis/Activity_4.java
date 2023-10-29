@@ -166,7 +166,6 @@ public class Activity_4
             public void actionPerformed(ActionEvent e) {
 
                 generateStoreReprots(administrator);
-                JOptionPane.showMessageDialog(null, "Report Option 3 was clicked.");
             }
         });
 

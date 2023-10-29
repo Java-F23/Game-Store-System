@@ -311,5 +311,50 @@ public class Administrator extends User
     {
         return AdministratorDB.logIn(this);
     }
+
+    public Game fetchGameByTitle(String gameTitle)
+    {
+        try 
+        {
+            if(gameTitle == null)
+            {
+                throw new IllegalArgumentException("Null refrence game title");
+            }
+
+            if(gameTitle.isEmpty())
+            {
+                throw new IllegalArgumentException("No game title");
+            }
+            
+        } 
+        catch (IllegalArgumentException e) 
+        {
+            System.out.println("Invalid argument, please re-enter");
+            return null;
+        }
+
+        Game game = GamesDB.searchByTitle(gameTitle);
+
+        if(game != null)
+        {
+            return game;
+        }
+        else
+        {
+            System.out.println("No such game with that title in the database");
+            return null;
+        }
+        
+    }
+
+    public ArrayList<Game> fetchGamesDB()
+    {
+        return GamesDB.getGameList();
+    }
+
+    public ArrayList<Player> fetchPlayersDB()
+    {
+        return PlayersDB.getPlayerList();
+    }
 }
 

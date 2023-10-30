@@ -37,6 +37,11 @@ public class GamesDB
         displayGamesSummarized(GamesDB.gameList);
     }
 
+    public static ArrayList<Game> getGames()
+    {
+        return GamesDB.gameList;
+    }
+
     /**
      * Search for games based on a single genre tag.
      *
@@ -101,6 +106,38 @@ public class GamesDB
     }
 
     /**
+     * Search for games based on a list of genre tags.
+     *
+     * @param genreTags The list of genre tags to search for.
+     * @return true if the search is successful, false if the provided genre tags are invalid.
+     */
+    public static ArrayList<Game> tagsBasedSearchGUI(ArrayList<String> genreTags)
+    {
+        try
+        {
+            if(genreTags == null)
+            {
+                throw new IllegalArgumentException("Null refrence game tags");
+            }
+
+            if(genreTags.isEmpty())
+            {
+                throw new IllegalArgumentException("No game tags");
+            }
+        }
+        catch (IllegalArgumentException e) 
+        {
+            System.out.println("Invalid genreTags, please re-enter");
+            return null;
+        }
+
+        ArrayList<Game> filtered = filterGamesByGenres(genreTags);
+
+        return filtered;
+        
+    }
+
+    /**
      * Search for games released in a specific year.
      *
      * @param year The release year to search for.
@@ -123,6 +160,31 @@ public class GamesDB
         ArrayList<Game> filtered = filterGamesByYear(year);
         displayGamesSummarized(filtered);
         return true;
+    }
+
+    /**
+     * Search for games released in a specific year.
+     *
+     * @param year The release year to search for.
+     * @return true if the search is successful, false if the provided year is invalid.
+     */
+    public static ArrayList<Game> yearBasedSearchGUI(int year)
+    {
+        try
+        {
+            if (year < 0) 
+            {
+                throw new IllegalArgumentException("Invalid year value. Year must be non-negative.");
+            }
+        }
+        catch (IllegalArgumentException e) 
+        {
+            System.out.println("Invalid year, please re-enter");
+            return null;
+        }
+        ArrayList<Game> filtered = filterGamesByYear(year);
+        
+        return filtered;
     }
     
     /**
@@ -148,6 +210,30 @@ public class GamesDB
         ArrayList<Game> filtered = filterGamesByMonth(month);
         displayGamesSummarized(filtered);
         return true;
+    }
+
+    /**
+     * Search for games released in a specific month.
+     *
+     * @param month The release month to search for.
+     * @return true if the search is successful, false if the provided month is invalid.
+     */
+    public static ArrayList<Game> monthBasedSearchGUI(int month)
+    {
+        try
+        {
+            if (month < 1 || month > 12) 
+            {
+                throw new IllegalArgumentException("Invalid month value. Month must be between 1 and 12.");
+            }
+        }
+        catch (IllegalArgumentException e) 
+        {
+            System.out.println("Invalid month, please re-enter");
+            return null;
+        }
+        ArrayList<Game> filtered = filterGamesByMonth(month);
+        return filtered;
     }
 
     /**
@@ -272,7 +358,7 @@ public class GamesDB
             }
 
             
-            if(dateParts.get(1).equals(String.valueOf(month)))
+            if(Integer.parseInt(dateParts.get(1))==(month))
             {
                 filteredGames.add(game);
             }
@@ -441,6 +527,7 @@ public class GamesDB
     public static boolean addGame(Game game)
     {
         boolean status = false;
+        boolean found = false;
 
         try
         {
@@ -474,7 +561,16 @@ public class GamesDB
             return false;
         }
 
-        if(GamesDB.gameList.contains(game))
+        for(Game G : GamesDB.gameList)
+        {
+            if(G.getGameName().equals(game.getGameName()))
+            {
+                found = true;
+                break;
+            }
+        }
+
+        if(found)
         {
             System.out.println("game is already in the database");
             status = false;
@@ -488,6 +584,21 @@ public class GamesDB
             status = true;
             
         }
+
+        // if(GamesDB.gameList.contains(game))
+        // {
+        //     System.out.println("game is already in the database");
+        //     status = false;
+        // }
+        // else
+        // {
+            
+            
+        //     GamesDB.gameList.add(game);
+        //     System.out.println("game added to database");
+        //     status = true;
+            
+        // }
         return status;
     }
 

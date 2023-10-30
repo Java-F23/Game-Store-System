@@ -99,15 +99,15 @@ public class Generator
             new BigDecimal("59.99"), new BigDecimal("0.00"), 0);
 
         Game game8 = new Game("Call of Duty", "A first-person shooter", 0, new ArrayList<>(), 0, new ArrayList<>(),
-            "2023-10-05", "Infinity Ward", "Activision", new ArrayList<>(), new BigDecimal("1.00"),
+            "2022-10-05", "Infinity Ward", "Activision", new ArrayList<>(), new BigDecimal("1.00"),
             new BigDecimal("1.00"), new BigDecimal("0.00"), 0);
 
         Game game9 = new Game("Apex Legends", "A battle royale game", 0, new ArrayList<>(), 0, new ArrayList<>(),
-            "2023-10-06", "Respawn Entertainment", "Electronic Arts", new ArrayList<>(), new BigDecimal("1.00"),
+            "2022-10-06", "Respawn Entertainment", "Electronic Arts", new ArrayList<>(), new BigDecimal("1.00"),
             new BigDecimal("1.00"), new BigDecimal("0.00"), 0);
 
         Game game10 = new Game("CSGO", "A first-person shooter", 0, new ArrayList<>(), 0, new ArrayList<>(),
-            "2023-10-07", "Valve", "Valve", new ArrayList<>(), new BigDecimal("14.99"),
+            "2022-10-07", "Valve", "Valve", new ArrayList<>(), new BigDecimal("14.99"),
             new BigDecimal("14.99"), new BigDecimal("0.00"), 0);
 
         ArrayList<Game> list = GamesDB.getGameList();

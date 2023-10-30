@@ -8,6 +8,8 @@ that take the msg and timer to notify the user with different things
 
 - ------>>>>>>FIX THE LAYOUTS
 
+- generate dummy rates and reviews in the generator class
+
 **Activity 2**
 - Verify the credientails of the user input from the gui (Verify the strings are valied, not the DB)
 

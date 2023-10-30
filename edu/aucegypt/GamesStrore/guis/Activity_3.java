@@ -264,8 +264,7 @@ public class Activity_3
 
             if(isPlayer)
             {
-                Activity_1.openMainFrame(); // Open the main frame with buttons
-                // to be changed
+                Activity_5.openPlayerWindow(player);
             }
             else
             {

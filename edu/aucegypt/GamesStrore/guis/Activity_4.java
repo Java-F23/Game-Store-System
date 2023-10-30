@@ -31,7 +31,6 @@ import edu.aucegypt.GamesStrore.users.Player;
 //Admin window
 public class Activity_4 
 {
-    private static boolean status;
 
     public static void openAdminWindow(Administrator administrator) 
     {
@@ -118,6 +117,7 @@ public class Activity_4
         menuBar.add(reportsMenu);
 
         adminFrame.setJMenuBar(menuBar);
+        adminFrame.setLocationRelativeTo(null);
         adminFrame.setVisible(true);
     }
 

@@ -5,9 +5,7 @@ import javax.swing.*;
 import edu.aucegypt.GamesStrore.resources.Strings;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

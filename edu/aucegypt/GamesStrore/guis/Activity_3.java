@@ -1,6 +1,8 @@
 package edu.aucegypt.GamesStrore.guis;
 
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,6 +11,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -35,59 +38,108 @@ public class Activity_3
 
     
     public static void openLogInFrame() {
-        //Create the main frame
-        JFrame LoginFrame = new JFrame(Strings.activity3Name);
-        LoginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        LoginFrame.setSize(800, 800);
-        LoginFrame.setLayout(new GridLayout(6, 2));
+    JFrame LoginFrame = new JFrame(Strings.activity3Name);
+    LoginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    LoginFrame.setSize(400, 400); // Reduced frame size
+    LoginFrame.setLayout(new GridBagLayout());
 
-        // Create components for the login form
-        JLabel userTypeLabel = new JLabel(Strings.checkBoxLabel);
-        userTypeCheckBox = new JCheckBox(); // 1 is player 0 is admin
-        userTypeCheckBox.setToolTipText(Strings.checkBoxTip); // Add a tooltip
+    // Create constraints for the layout
+    GridBagConstraints constraints = new GridBagConstraints();
+    constraints.insets = new Insets(5, 5, 5, 5); // Padding around components
 
-        JLabel usernameLabel = new JLabel(Strings.userNameFieldLabel);
-        usernameField = new JTextField();
+    // Create components for the registration form
+    JLabel usernameLabel = new JLabel(Strings.userNameFieldLabel);
+     usernameField = new JTextField(15); // Reduced text field size
 
-        JLabel passwordLabel = new JLabel(Strings.userPassFieldLabel);
-        passwordField = new JPasswordField();
+    JLabel passwordLabel = new JLabel(Strings.userPassFieldLabel);
+     passwordField = new JPasswordField(15);
 
-        JLabel emailLabel = new JLabel(Strings.userMailFieldLabel);
-        emailField = new JTextField();
+    JLabel emailLabel = new JLabel(Strings.userMailFieldLabel);
+     emailField = new JTextField(15);
 
-        // Create buttons
-        JButton logInButton = new JButton(Strings.loginButtonLabel);
-        logInButton.setActionCommand("Button1");
+    JLabel userTypeLabel = new JLabel(Strings.checkBoxLabel);
+     userTypeCheckBox = new JCheckBox(); // 1 is player, 0 is admin
+    userTypeCheckBox.setToolTipText(Strings.checkBoxTip); // Add a tooltip
 
-        JButton cancelButton = new JButton(Strings.cancelButtonLabel);
-        cancelButton.setActionCommand("Button2");
+    // Create a panel for the user type components
+    JPanel userTypePanel = new JPanel();
+    userTypePanel.setLayout(new GridBagLayout());
 
-        // Add action listener to the Sign Up button
-        ActionListener buttonHandler = new ButtonHandler(LoginFrame);
-        logInButton.addActionListener(buttonHandler);
+    constraints.gridx = 0;
+    constraints.gridy = 0;
+    constraints.anchor = GridBagConstraints.WEST;
+    userTypePanel.add(userTypeLabel, constraints);
 
-        // Add action listener to the Cancel button
-        cancelButton.addActionListener(buttonHandler);
+    constraints.gridx = 1;
+    userTypePanel.add(userTypeCheckBox, constraints);
 
+    // Create buttons
+    JButton logInButton = new JButton(Strings.loginButtonLabel);
+    logInButton.setActionCommand("Button1");
 
-        // Add components to the frame
-        LoginFrame.add(userTypeLabel);
-        LoginFrame.add(userTypeCheckBox);
-        LoginFrame.add(usernameLabel);
-        LoginFrame.add(usernameField);
-        LoginFrame.add(passwordLabel);
-        LoginFrame.add(passwordField);
-        LoginFrame.add(emailLabel);
-        LoginFrame.add(emailField);
-        LoginFrame.add(logInButton);
-        LoginFrame.add(cancelButton);
+    JButton cancelButton = new JButton(Strings.cancelButtonLabel);
+    cancelButton.setActionCommand("Button2");
 
-        // Center the frame on the screen
-        LoginFrame.setLocationRelativeTo(null);
+    // Add action listener to the Sign Up button
+    ActionListener buttonHandler = new ButtonHandler(LoginFrame);
+    logInButton.addActionListener(buttonHandler);
 
-        // Show the registration frame
-        LoginFrame.setVisible(true);
-    }
+    // Add action listener to the Cancel button
+    cancelButton.addActionListener(buttonHandler);
+
+    // Create a panel for the buttons
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.setLayout(new GridBagLayout());
+
+    constraints.gridx = 0;
+    constraints.gridy = 0;
+    buttonPanel.add(logInButton, constraints);
+
+    constraints.gridx = 1;
+    buttonPanel.add(cancelButton, constraints);
+
+    // Create a panel to hold all components
+    JPanel mainPanel = new JPanel();
+    mainPanel.setLayout(new GridBagLayout());
+
+    constraints.gridx = 0;
+    constraints.gridy = 0;
+    mainPanel.add(usernameLabel, constraints);
+
+    constraints.gridx = 1;
+    mainPanel.add(usernameField, constraints);
+
+    constraints.gridx = 0;
+    constraints.gridy++;
+    mainPanel.add(passwordLabel, constraints);
+
+    constraints.gridx = 1;
+    mainPanel.add(passwordField, constraints);
+
+    constraints.gridx = 0;
+    constraints.gridy++;
+    mainPanel.add(emailLabel, constraints);
+
+    constraints.gridx = 1;
+    mainPanel.add(emailField, constraints);
+
+    
+    constraints.gridy++;
+    mainPanel.add(userTypePanel, constraints);
+
+    constraints.gridy++;
+    mainPanel.add(buttonPanel, constraints);
+
+    // Add the main panel to the frame
+    LoginFrame.add(mainPanel);
+
+    // Center the frame on the screen
+    LoginFrame.setLocationRelativeTo(null);
+
+    // Show the registration frame
+    LoginFrame.setVisible(true);
+}
+
 
     static class ButtonHandler implements ActionListener 
     {

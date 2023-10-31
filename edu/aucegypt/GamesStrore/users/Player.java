@@ -858,6 +858,19 @@ public class Player extends User {
         return true;
     }
 
+    public ArrayList<String> getGames()
+    {
+        ArrayList<Game> games = GamesDB.getGameList();
+        ArrayList<String> gameNames = new ArrayList<>();
+
+        for (Game game : games) {
+            gameNames.add(game.getGameName());
+        }
+
+        return gameNames;
+        
+    }
+
     /**
      * Allows the player to search for games based on a single genre tag.
      *
@@ -920,6 +933,36 @@ public class Player extends User {
     }
 
     /**
+     * Allows the player to search for games based on multiple genre tags.
+     *
+     * @param genreTags The list of genre tags to search for.
+     * @return true if the search was successful, false otherwise.
+     */
+    public ArrayList<Game> tagsBasedSearchGUI(ArrayList<String> genreTags)
+    {
+        try
+        {
+            if(genreTags == null)
+            {
+                throw new IllegalArgumentException("Null refrence game tags");
+            }
+
+            if(genreTags.isEmpty())
+            {
+                throw new IllegalArgumentException("No game tags");
+            }
+        }
+        catch (IllegalArgumentException e) 
+        {
+            System.out.println("Invalid genreTags, please re-enter");
+            return null;
+        }
+
+        return GamesDB.tagsBasedSearchGUI(genreTags);
+        
+    }
+
+    /**
      * Allows the player to search for games based on a specific release year.
      *
      * @param year The release year to search for.
@@ -942,6 +985,31 @@ public class Player extends User {
 
         GamesDB.yearBasedSearch(year);
         return true;
+    }
+
+    /**
+     * Allows the player to search for games based on a specific release year.
+     *
+     * @param year The release year to search for.
+     * @return true if the search was successful, false otherwise.
+     */
+    public ArrayList<Game> yearBasedSearchGUI(int year)
+    {
+        try
+        {
+            if (year < 0) 
+            {
+                throw new IllegalArgumentException("Invalid year value. Year must be non-negative.");
+            }
+        }
+        catch (IllegalArgumentException e) 
+        {
+            System.out.println("Invalid year, please re-enter");
+            return null;
+        }
+
+        return GamesDB.yearBasedSearchGUI(year);
+        
     }
     
     /**
@@ -966,6 +1034,30 @@ public class Player extends User {
         }
         GamesDB.monthBasedSearch(month);   
         return true;
+    }
+
+    /**
+     * Allows the player to search for games based on a specific release month.
+     *
+     * @param month The release month to search for (1 to 12).
+     * @return true if the search was successful, false otherwise.
+     */
+    public ArrayList<Game> monthBasedSearchGUI(int month)
+    {
+        try
+        {
+            if (month < 1 || month > 12) 
+            {
+                throw new IllegalArgumentException("Invalid month value. Month must be between 1 and 12.");
+            }
+        }
+        catch (IllegalArgumentException e) 
+        {
+            System.out.println("Invalid month, please re-enter");
+            return null;
+        }
+        return GamesDB.monthBasedSearchGUI(month);   
+        
     }
 
     /**
@@ -1014,12 +1106,96 @@ public class Player extends User {
 
     }
 
+    public Game fetchGameByTitle(String gameTitle)
+    {
+        try 
+        {
+            if(gameTitle == null)
+            {
+                throw new IllegalArgumentException("Null refrence game title");
+            }
+
+            if(gameTitle.isEmpty())
+            {
+                throw new IllegalArgumentException("No game title");
+            }
+            
+        } 
+        catch (IllegalArgumentException e) 
+        {
+            System.out.println("Invalid argument, please re-enter");
+            return null;
+        }
+
+        Game game = GamesDB.searchByTitle(gameTitle);
+
+        if(game != null)
+        {
+            return game;
+        }
+        else
+        {
+            System.out.println("No such game with that title in the database");
+            return null;
+        }
+        
+    }
+
+
     /**
      * Provides game recommendations to the player based on their purchase history.
      */
     public void viewRecommendations()
     {
         System.out.println("These recommendations are based on your purchacing prefrences");
+
+        ArrayList<String> tags = new ArrayList<>();
+
+        for(Game game : GamesDB.getGameList())
+        {
+            for(String title : this.purchasedGames)
+            {
+                if(title.equals(game.getGameName()))
+                {
+                    tags.addAll(game.getGenreTags());
+                }
+            }
+        }
+
+        
+
+        
+        ArrayList<String> cleanedTags = new ArrayList<>();
+        for (String tag : tags) {
+            if (!cleanedTags.contains(tag)) {
+                cleanedTags.add(tag);
+            }
+        }
+        
+
+        for (Game game : GamesDB.getGameList()) 
+        {
+            
+            boolean hasCommonElement = false;
+
+            for (String genre : game.getGenreTags()) {
+                if (cleanedTags.contains(genre)) {
+                    hasCommonElement = true;
+                    break;  
+                }
+            }
+
+            if (hasCommonElement) {
+                System.out.println(game.getGameName());
+            }
+        }
+
+
+    }
+
+    public ArrayList<String> getRecommendations()
+    {
+        ArrayList<String> recommendations =  new ArrayList<>();
 
         ArrayList<String> tags = new ArrayList<>();
 
@@ -1056,12 +1232,13 @@ public class Player extends User {
             }
 
             if (hasCommonElement) {
-                System.out.println(game.getGameName());
+                recommendations.add(game.getGameName());
             }
         }
 
-
+        return recommendations;
     }
+
 
     // Overridden toString method to provide a string representation of the Player object
     @Override

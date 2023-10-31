@@ -23,6 +23,7 @@ import edu.aucegypt.GamesStrore.users.Administrator;
 import edu.aucegypt.GamesStrore.users.Player;
 
 //Log in Activity
+// a class that serves as the third frame of the application, the login window
 public class Activity_3 
 {
     private static JCheckBox userTypeCheckBox;
@@ -36,7 +37,7 @@ public class Activity_3
     private static Player player;
     private static Administrator administrator;
 
-    
+    //A method to open the login window
     public static void openLogInFrame() {
     JFrame LoginFrame = new JFrame(Strings.activity3Name);
     LoginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -140,7 +141,7 @@ public class Activity_3
     LoginFrame.setVisible(true);
 }
 
-
+    // a method for serves as a collection of handlers for different buttons
     static class ButtonHandler implements ActionListener 
     {
         private JFrame logInFrame;
@@ -189,6 +190,7 @@ public class Activity_3
         
     }
 
+    // a method to handel the login functionality
     private static boolean logIn()
     {
         if(isPlayer)
@@ -226,6 +228,7 @@ public class Activity_3
         
     }
     
+    // a small transation between frames
     private static void reDirectMsg()
     {
         // Create a JFrame for the welcome message

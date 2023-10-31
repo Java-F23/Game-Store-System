@@ -23,6 +23,7 @@ import edu.aucegypt.GamesStrore.users.Administrator;
 import edu.aucegypt.GamesStrore.users.Player;
 
 //Sign up Activity
+// a class that serves as the second frame of the application, the sign up window
 public class Activity_2 
 {
     private static JCheckBox userTypeCheckBox;
@@ -30,113 +31,114 @@ public class Activity_2
     private static JPasswordField passwordField;
     private static JTextField emailField;
 
-    
-public static void openSignUpFrame() {
-    // Create the main frame
-    JFrame signUpFrame = new JFrame(Strings.activity2Name);
-    signUpFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    signUpFrame.setSize(400, 400); // Reduced frame size
-    signUpFrame.setLayout(new GridBagLayout());
+    //A method to open the sign up window
+    public static void openSignUpFrame() 
+    {
+        // Create the main frame
+        JFrame signUpFrame = new JFrame(Strings.activity2Name);
+        signUpFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        signUpFrame.setSize(400, 400); // Reduced frame size
+        signUpFrame.setLayout(new GridBagLayout());
 
-    // Create constraints for the layout
-    GridBagConstraints constraints = new GridBagConstraints();
-    constraints.insets = new Insets(5, 5, 5, 5); // Padding around components
+        // Create constraints for the layout
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.insets = new Insets(5, 5, 5, 5); // Padding around components
 
-    // Create components for the registration form
-    JLabel usernameLabel = new JLabel(Strings.userNameFieldLabel);
-     usernameField = new JTextField(15); // Reduced text field size
+        // Create components for the registration form
+        JLabel usernameLabel = new JLabel(Strings.userNameFieldLabel);
+         usernameField = new JTextField(15); // Reduced text field size
 
-    JLabel passwordLabel = new JLabel(Strings.userPassFieldLabel);
-     passwordField = new JPasswordField(15);
+        JLabel passwordLabel = new JLabel(Strings.userPassFieldLabel);
+         passwordField = new JPasswordField(15);
 
-    JLabel emailLabel = new JLabel(Strings.userMailFieldLabel);
-     emailField = new JTextField(15);
+        JLabel emailLabel = new JLabel(Strings.userMailFieldLabel);
+         emailField = new JTextField(15);
 
-    JLabel userTypeLabel = new JLabel(Strings.checkBoxLabel);
-     userTypeCheckBox = new JCheckBox(); // 1 is player, 0 is admin
-    userTypeCheckBox.setToolTipText(Strings.checkBoxTip); // Add a tooltip
+        JLabel userTypeLabel = new JLabel(Strings.checkBoxLabel);
+         userTypeCheckBox = new JCheckBox(); // 1 is player, 0 is admin
+        userTypeCheckBox.setToolTipText(Strings.checkBoxTip); // Add a tooltip
 
-    // Create a panel for the user type components
-    JPanel userTypePanel = new JPanel();
-    userTypePanel.setLayout(new GridBagLayout());
+        // Create a panel for the user type components
+        JPanel userTypePanel = new JPanel();
+        userTypePanel.setLayout(new GridBagLayout());
 
-    constraints.gridx = 0;
-    constraints.gridy = 0;
-    constraints.anchor = GridBagConstraints.WEST;
-    userTypePanel.add(userTypeLabel, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.anchor = GridBagConstraints.WEST;
+        userTypePanel.add(userTypeLabel, constraints);
 
-    constraints.gridx = 1;
-    userTypePanel.add(userTypeCheckBox, constraints);
+        constraints.gridx = 1;
+        userTypePanel.add(userTypeCheckBox, constraints);
 
-    // Create buttons
-    JButton signUpButton = new JButton(Strings.signUpButtonLabel);
-    signUpButton.setActionCommand("Button1");
+        // Create buttons
+        JButton signUpButton = new JButton(Strings.signUpButtonLabel);
+        signUpButton.setActionCommand("Button1");
 
-    JButton cancelButton = new JButton(Strings.cancelButtonLabel);
-    cancelButton.setActionCommand("Button2");
+        JButton cancelButton = new JButton(Strings.cancelButtonLabel);
+        cancelButton.setActionCommand("Button2");
 
-    // Add action listener to the Sign Up button
-    ActionListener buttonHandler = new ButtonHandler(signUpFrame);
-    signUpButton.addActionListener(buttonHandler);
+        // Add action listener to the Sign Up button
+        ActionListener buttonHandler = new ButtonHandler(signUpFrame);
+        signUpButton.addActionListener(buttonHandler);
 
-    // Add action listener to the Cancel button
-    cancelButton.addActionListener(buttonHandler);
+        // Add action listener to the Cancel button
+        cancelButton.addActionListener(buttonHandler);
 
-    // Create a panel for the buttons
-    JPanel buttonPanel = new JPanel();
-    buttonPanel.setLayout(new GridBagLayout());
+        // Create a panel for the buttons
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridBagLayout());
 
-    constraints.gridx = 0;
-    constraints.gridy = 0;
-    buttonPanel.add(signUpButton, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        buttonPanel.add(signUpButton, constraints);
 
-    constraints.gridx = 1;
-    buttonPanel.add(cancelButton, constraints);
+        constraints.gridx = 1;
+        buttonPanel.add(cancelButton, constraints);
 
-    // Create a panel to hold all components
-    JPanel mainPanel = new JPanel();
-    mainPanel.setLayout(new GridBagLayout());
+        // Create a panel to hold all components
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new GridBagLayout());
 
-    constraints.gridx = 0;
-    constraints.gridy = 0;
-    mainPanel.add(usernameLabel, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        mainPanel.add(usernameLabel, constraints);
 
-    constraints.gridx = 1;
-    mainPanel.add(usernameField, constraints);
+        constraints.gridx = 1;
+        mainPanel.add(usernameField, constraints);
 
-    constraints.gridx = 0;
-    constraints.gridy++;
-    mainPanel.add(passwordLabel, constraints);
+        constraints.gridx = 0;
+        constraints.gridy++;
+        mainPanel.add(passwordLabel, constraints);
 
-    constraints.gridx = 1;
-    mainPanel.add(passwordField, constraints);
+        constraints.gridx = 1;
+        mainPanel.add(passwordField, constraints);
 
-    constraints.gridx = 0;
-    constraints.gridy++;
-    mainPanel.add(emailLabel, constraints);
+        constraints.gridx = 0;
+        constraints.gridy++;
+        mainPanel.add(emailLabel, constraints);
 
-    constraints.gridx = 1;
-    mainPanel.add(emailField, constraints);
+        constraints.gridx = 1;
+        mainPanel.add(emailField, constraints);
 
-    
-    constraints.gridy++;
-    mainPanel.add(userTypePanel, constraints);
+        
+        constraints.gridy++;
+        mainPanel.add(userTypePanel, constraints);
 
-    constraints.gridy++;
-    mainPanel.add(buttonPanel, constraints);
+        constraints.gridy++;
+        mainPanel.add(buttonPanel, constraints);
 
-    // Add the main panel to the frame
-    signUpFrame.add(mainPanel);
+        // Add the main panel to the frame
+        signUpFrame.add(mainPanel);
 
-    // Center the frame on the screen
-    signUpFrame.setLocationRelativeTo(null);
+        // Center the frame on the screen
+        signUpFrame.setLocationRelativeTo(null);
 
-    // Show the registration frame
-    signUpFrame.setVisible(true);
-}
+        // Show the registration frame
+        signUpFrame.setVisible(true);
+    }
         
     
-
+    // a method for serves as a collection of handlers for different buttons
     static class ButtonHandler implements ActionListener 
     {
         private JFrame signUpFrame;
@@ -181,6 +183,7 @@ public static void openSignUpFrame() {
         }
     }
 
+    // a method to handel the signup functionality
     private static boolean signUp(String[] credentials,boolean isPlayer )
     {
         String result;
@@ -213,6 +216,7 @@ public static void openSignUpFrame() {
         return false;
     }
 
+    // a small transation between frames 
     private static void reDirectMsg()
     {
         // Create a JFrame for the welcome message

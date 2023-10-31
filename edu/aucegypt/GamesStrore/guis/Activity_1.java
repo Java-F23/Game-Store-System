@@ -10,9 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 //Welcome Activity
+// A class that serves as the first window of the project, the welcome and entrance
 public class Activity_1 
 {
-    public static void WelcomeMsg() {
+    // a method that creating a welcome measge for the user
+    public static void WelcomeMsg() 
+    {
         // Create a JFrame for the welcome message
         JFrame welcomeFrame = new JFrame(Strings.storeName);
         welcomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,7 +37,9 @@ public class Activity_1
         timer.start();
     }
 
-    protected static void openMainFrame() {
+    // a method that generates the first frame 
+    protected static void openMainFrame() 
+    {
         // Create a new JFrame for the main frame
         JFrame mainFrame = new JFrame(Strings.welcomeLabel + "!");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,6 +106,7 @@ public class Activity_1
     
     
 
+    // A timer to timeout the welcome mesage
     static class CloseWelcomeListener implements ActionListener 
     {
         private JFrame welcomeFrame;
@@ -116,6 +122,7 @@ public class Activity_1
         }
     }
 
+    // a method for serves as a collection of handlers for different buttons
     static class ButtonHandler implements ActionListener 
     {
         private JFrame welcomeFrame;
@@ -149,6 +156,7 @@ public class Activity_1
             }
         }
     }
+
 }
 
 

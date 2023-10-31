@@ -29,9 +29,11 @@ import edu.aucegypt.GamesStrore.users.Administrator;
 import edu.aucegypt.GamesStrore.users.Player;
 
 //Admin window
+// A class that handel the Admin tasks
 public class Activity_4 
 {
 
+    // A method that displayes the admin window
     public static void openAdminWindow(Administrator administrator) 
     {
         JFrame adminFrame = new JFrame("Admin Window");
@@ -93,7 +95,7 @@ public class Activity_4
                 Game game = administrator.fetchGameByTitle(gameTitle);
                 if(game == null)
                 {
-                    JOptionPane.showMessageDialog(null, "Error occured 1", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 else
                 {
@@ -105,6 +107,15 @@ public class Activity_4
             }
         });
 
+        JMenuItem logout = new JMenuItem("Logout");
+        logout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                adminFrame.dispose();
+                Activity_3.openLogInFrame();
+            }
+        });
+        
+
         editGamesMenu.add(addGameMenuItem);
         editGamesMenu.add(removeGameMenuItem);
         editGamesMenu.add(editGameDetailsMenuItem);
@@ -115,12 +126,14 @@ public class Activity_4
 
         menuBar.add(editGamesMenu);
         menuBar.add(reportsMenu);
+        menuBar.add(logout);
 
         adminFrame.setJMenuBar(menuBar);
         adminFrame.setLocationRelativeTo(null);
         adminFrame.setVisible(true);
     }
 
+    // A set of methods that handel some components in the frame
     private static JPanel createRadioButtons(Administrator administrator) {
         JPanel radioPanel = new JPanel();
         radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.Y_AXIS));
@@ -141,10 +154,7 @@ public class Activity_4
                 {
                     JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                else
-                {
-                    JOptionPane.showMessageDialog(null, "Report Option 1 was clicked.");
-                }
+                
 
             }
         });
@@ -155,10 +165,7 @@ public class Activity_4
                 {
                     JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                else
-                {
-                    JOptionPane.showMessageDialog(null, "Report Option 2 was clicked.");
-                }
+                
             }
         });
 

@@ -6,7 +6,6 @@ that take the msg and timer to notify the user with different things
 
 - Find a better way for user enterance forms
 
-- The Recommendation system has a backed issue, the tag based search has issues. 
 
 - ------>>>>>>FIX THE LAYOUTS
 

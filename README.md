@@ -85,7 +85,7 @@ The Future Plans are as follows:
 ## Contributing
 By:
 - Mahmoud Matar, ID: 900193415, Section: 1
-- ChatGPT: https://chat.openai.com/share/158c3abb-0a59-40e0-a986-a05df652d274
+- ChatGPT: https://chat.openai.com/share/7812a819-91f9-4e10-8151-1a8741febfeb
 
 Clone the repository to your local machine:
 

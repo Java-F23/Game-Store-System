@@ -273,7 +273,7 @@ public class GamesDB
 
 
         ArrayList<Game> finalFilteredGames = new ArrayList<>();
-        for (Game game : GamesDB.gameList) {
+        for (Game game : filteredGames) {
             if (!finalFilteredGames.contains(game)) {
                 finalFilteredGames.add(game);
             }

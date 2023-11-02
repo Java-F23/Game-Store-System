@@ -16,6 +16,7 @@ import java.util.ArrayList;
  {
     private static JPanel contentPanel;
     private static GridBagConstraints gbc;
+    private static int recomendationsNextGridYStop;
 
     // a method that displays the player window
     public static void openPlayerWindow(Player player) 
@@ -65,13 +66,16 @@ import java.util.ArrayList;
         gbc.gridy++;
 
         // Add  recommendations
+        
+        recomendationsNextGridYStop = gbc.gridy;
 
-        listContent(player.getRecommendations());
+        listContent(player.getRecommendations(), true);
         for (int i = 1; i <= 6; i++) {
-            JLabel recommendation = new JLabel("Recommendation " + i);
+            JLabel recommendation = new JLabel("Recommendation Example " + i);
             contentPanel.add(recommendation, gbc);
             gbc.gridy++;
         }
+        
 
         // Create the Browse Games section
         gbc.gridx = 0;
@@ -82,9 +86,9 @@ import java.util.ArrayList;
         gbc.gridy++;
 
         // Add games
-        listContent(player.getGames());
-        for (int i = 1; i <= 100; i++) {
-            JLabel game = new JLabel("Game " + i);
+        listContent(player.getGames(),false);
+        for (int i = 1; i <= 10; i++) {
+            JLabel game = new JLabel("Store Game Example " + i);
             contentPanel.add(game, gbc);
             gbc.gridy++;
         }
@@ -183,6 +187,8 @@ import java.util.ArrayList;
                         
                         if(player.purchaseGame(input).equals("add to library"))
                         {
+                            listContent(player.getRecommendations(),true);
+
                             JOptionPane.showMessageDialog(null, input + " add to library", "success", JOptionPane.INFORMATION_MESSAGE);
 
                         }
@@ -362,6 +368,32 @@ import java.util.ArrayList;
                         System.out.println("FeedBack Item Selected: " + item);
                         break;
                     case "Search games by genres":
+
+                        input = JOptionPane.showInputDialog("Enter the tags separated by commas");
+
+                        String commaSeparatedString = input; 
+
+                        String[] parts = commaSeparatedString.split(",");
+
+                        ArrayList<String> T = new ArrayList<>();
+
+                        for (String part : parts) {
+                            T.add(part);
+                        }
+
+                        ArrayList<Game> tagSearch = player.tagsBasedSearchGUI(T);
+                        if(tagSearch != null)
+                        {
+                            listSearch(tagSearch);
+
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
+
+                        }
+                    break;
+                        
                     case "Search games by release year":
                         input = JOptionPane.showInputDialog("Enter the target year");
                         ArrayList<Game> yearSearch = player.yearBasedSearchGUI(Integer.parseInt(input));
@@ -435,14 +467,21 @@ import java.util.ArrayList;
     }
 
     // a list of helper functions
-    private static void listContent(ArrayList<String> content)
+    private static void listContent(ArrayList<String> content, boolean listReccomendation)
     {
-        
+        if(listReccomendation)
+        {
+            gbc.gridy = recomendationsNextGridYStop;
+        }
         for (String string : content) 
         {
             JLabel game = new JLabel(string);
             contentPanel.add(game, gbc);
             gbc.gridy++;
+        }
+        if(listReccomendation)
+        {
+            recomendationsNextGridYStop = gbc.gridy;
         }
 
     }

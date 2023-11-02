@@ -1149,15 +1149,22 @@ public class Player extends User {
     {
         System.out.println("These recommendations are based on your purchacing prefrences");
 
-        ArrayList<String> tags = new ArrayList<>();
+        ArrayList<String> recommendations = new ArrayList<>();
+
+        
 
         for(Game game : GamesDB.getGameList())
         {
             for(String title : this.purchasedGames)
             {
-                if(title.equals(game.getGameName()))
+                Game temp = fetchGameByTitle(title);
+
+                for(String gameTag : temp.getGenreTags())
                 {
-                    tags.addAll(game.getGenreTags());
+                    if(game.getGenreTags().contains(gameTag) && !game.getGameName().equals(title))
+                    {
+                        recommendations.add(game.getGameName());
+                    }
                 }
             }
         }
@@ -1165,74 +1172,46 @@ public class Player extends User {
         
 
         
-        ArrayList<String> cleanedTags = new ArrayList<>();
-        for (String tag : tags) {
-            if (!cleanedTags.contains(tag)) {
-                cleanedTags.add(tag);
+        ArrayList<String> cleanedList = new ArrayList<>();
+        for (String title : recommendations) {
+            if (!cleanedList.contains(title)) {
+                cleanedList.add(title);
             }
         }
-        
 
-        for (Game game : GamesDB.getGameList()) 
+        for(String s : cleanedList)
         {
-            
-            boolean hasCommonElement = false;
-
-            for (String genre : game.getGenreTags()) {
-                if (cleanedTags.contains(genre)) {
-                    hasCommonElement = true;
-                    break;  
-                }
-            }
-
-            if (hasCommonElement) {
-                System.out.println(game.getGameName());
-            }
+            System.out.println(s);
         }
-
-
     }
 
     public ArrayList<String> getRecommendations()
     {
         ArrayList<String> recommendations =  new ArrayList<>();
 
-        ArrayList<String> tags = new ArrayList<>();
-
         for(Game game : GamesDB.getGameList())
         {
             for(String title : this.purchasedGames)
             {
-                if(title.equals(game.getGameName()))
+                Game temp = fetchGameByTitle(title);
+
+                for(String gameTag : temp.getGenreTags())
                 {
-                    tags.addAll(game.getGenreTags());
+                    if(game.getGenreTags().contains(gameTag) && !game.getGameName().equals(title))
+                    {
+                        recommendations.add(game.getGameName());
+                    }
                 }
             }
         }
 
         
-        ArrayList<String> cleanedTags = new ArrayList<>();
-        for (String tag : tags) {
-            if (!cleanedTags.contains(tag)) {
-                cleanedTags.add(tag);
-            }
-        }
+
         
-
-        for (Game game : GamesDB.getGameList()) 
-        {
-            
-            boolean hasCommonElement = false;
-
-            for (String genre : game.getGenreTags()) {
-                if (cleanedTags.contains(genre)) {
-                    hasCommonElement = true;
-                    break;  
-                }
-            }
-
-            if (hasCommonElement) {
-                recommendations.add(game.getGameName());
+        ArrayList<String> cleanedList = new ArrayList<>();
+        for (String title : recommendations) {
+            if (!cleanedList.contains(title)) {
+                cleanedList.add(title);
             }
         }
 

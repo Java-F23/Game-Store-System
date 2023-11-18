@@ -6,18 +6,20 @@ import edu.aucegypt.GamesStrore.resources.Strings;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 //Welcome Activity
 // A class that serves as the first window of the project, the welcome and entrance
 public class Activity_1 
 {
+    protected static JFrame welcomeFrame;
+    protected static JFrame mainFrame;
+
     // a method that creating a welcome measge for the user
-    public static void WelcomeMsg() 
+    protected static void WelcomeMsg() 
     {
         // Create a JFrame for the welcome message
-        JFrame welcomeFrame = new JFrame(Strings.storeName);
+        welcomeFrame = new JFrame(Strings.storeName);
         welcomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create a JLabel for the welcome message
@@ -31,8 +33,9 @@ public class Activity_1
         welcomeFrame.setVisible(true);
 
         // Schedule a Timer to close the welcome frame after 10 seconds
-        ActionListener closeWelcomeListener = new CloseWelcomeListener(welcomeFrame);
+        ActionListener closeWelcomeListener = new Activity_1Controller();
         Timer timer = new Timer(2000, closeWelcomeListener);
+        timer.setActionCommand("Timer");
         timer.setRepeats(false); // Run the timer only once
         timer.start();
     }
@@ -41,7 +44,7 @@ public class Activity_1
     protected static void openMainFrame() 
     {
         // Create a new JFrame for the main frame
-        JFrame mainFrame = new JFrame(Strings.welcomeLabel + "!");
+        mainFrame = new JFrame(Strings.welcomeLabel + "!");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLayout(new BoxLayout(mainFrame.getContentPane(), BoxLayout.Y_AXIS));
     
@@ -56,7 +59,7 @@ public class Activity_1
         QuitButton.setActionCommand("Button3");
     
         // Create a single ActionListener
-        ActionListener buttonHandler = new ButtonHandler(mainFrame);
+        ActionListener buttonHandler = new Activity_1Controller();
     
         // Add the ActionListener to all buttons
         loginButton.addActionListener(buttonHandler);
@@ -102,22 +105,6 @@ public class Activity_1
         mainFrame.setResizable(false);
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setVisible(true);
-    }
-
-    // A timer to timeout the welcome mesage
-    static class CloseWelcomeListener implements ActionListener 
-    {
-        private JFrame welcomeFrame;
-
-        public CloseWelcomeListener(JFrame welcomeFrame) {
-            this.welcomeFrame = welcomeFrame;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            welcomeFrame.dispose(); // Close the welcome frame
-            Activity_1.openMainFrame(); // Open the main frame with buttons
-        }
     }
 }
 

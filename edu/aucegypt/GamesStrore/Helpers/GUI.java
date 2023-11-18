@@ -29,48 +29,48 @@ public class GUI
                                                     JTextField developerField,JTextField publisherField,
                                                     JTextField originalPriceField,JTextField priceField,
                                                     JTextField discountField,JTextField genreTagsField) 
-{
-    String gameName = gameNameField.getText();
-    String description = descriptionField.getText();
-    String releaseDate = releaseDateField.getText();
-    String developer = developerField.getText();
-    String publisher = publisherField.getText();
-    String originalPrice = originalPriceField.getText();
-    String price = priceField.getText();
-    String discount = discountField.getText();
-    String genreTags = genreTagsField.getText();
-
-    String[] gameDetails = {
-        gameName,
-        description,
-        releaseDate,
-        developer,
-        publisher,
-        originalPrice,
-        price,
-        discount,
-        genreTags
-    };
-
-    // Print the extracted values for testing
-    for (int i = 0; i < gameDetails.length; i++) {
-        if (gameDetails[i].equals("")) {
-            gameDetails[i] = null;
-        }
-    }
-    for (String detail : gameDetails) 
     {
-        if(detail == null)
-        {
-            System.out.println("XXXXXX");
-        }
-        else
-        {
-            System.out.println(detail);
-        }
-    }
+        String gameName = gameNameField.getText();
+        String description = descriptionField.getText();
+        String releaseDate = releaseDateField.getText();
+        String developer = developerField.getText();
+        String publisher = publisherField.getText();
+        String originalPrice = originalPriceField.getText();
+        String price = priceField.getText();
+        String discount = discountField.getText();
+        String genreTags = genreTagsField.getText();
 
-    return gameDetails;
-}
+        String[] gameDetails = {
+            gameName,
+            description,
+            releaseDate,
+            developer,
+            publisher,
+            originalPrice,
+            price,
+            discount,
+            genreTags
+        };
+
+        // Print the extracted values for testing
+        for (int i = 0; i < gameDetails.length; i++) {
+            if (gameDetails[i].equals("")) {
+                gameDetails[i] = null;
+            }
+        }
+        for (String detail : gameDetails) 
+        {
+            if(detail == null)
+            {
+                System.out.println("XXXXXX");
+            }
+            else
+            {
+                System.out.println(detail);
+            }
+        }
+    
+        return gameDetails;
+    }
 
 }

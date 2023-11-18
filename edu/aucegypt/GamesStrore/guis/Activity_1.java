@@ -103,8 +103,6 @@ public class Activity_1
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setVisible(true);
     }
-    
-    
 
     // A timer to timeout the welcome mesage
     static class CloseWelcomeListener implements ActionListener 
@@ -121,42 +119,6 @@ public class Activity_1
             Activity_1.openMainFrame(); // Open the main frame with buttons
         }
     }
-
-    // a method for serves as a collection of handlers for different buttons
-    static class ButtonHandler implements ActionListener 
-    {
-        private JFrame welcomeFrame;
-
-        public ButtonHandler(JFrame welcomeFrame) {
-            this.welcomeFrame = welcomeFrame;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String command = e.getActionCommand();
-
-            switch (command) {
-                case "Button1":
-                    System.out.println("Button 1 was clicked.");
-                    welcomeFrame.dispose();
-                    Activity_3.openLogInFrame();
-                    break;
-                case "Button2":
-                    System.out.println("Button 2 was clicked.");
-                    welcomeFrame.dispose();
-                    Activity_2.openSignUpFrame();
-                    break;
-                case "Button3":
-                    System.out.println("Button 3 was clicked.");
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println("Unknown action command: ");
-                    break;
-            }
-        }
-    }
-
 }
 
 

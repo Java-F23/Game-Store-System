@@ -67,7 +67,7 @@ public class Activity_2Controller implements ActionListener
                 break;
             
             case "Timer":
-                Authentication.authFrame.dispose(); // Close the welcome frame
+                Authentication.reDirectingFrame.dispose(); // Close the welcome frame
                 Activity_1.openMainFrame(); // Open the main frame with buttons
                 break;
             default:

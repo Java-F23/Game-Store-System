@@ -21,6 +21,7 @@ import edu.aucegypt.GamesStrore.resources.Strings;
 public class Authentication 
 {
     protected static JFrame authFrame;
+    protected static JFrame reDirectingFrame;
     protected static JCheckBox userTypeCheckBox;
     protected static JTextField usernameField;
     protected static JPasswordField passwordField;
@@ -138,7 +139,7 @@ public class Authentication
     protected static void reDirectMsg()
     {
         // Create a JFrame for the welcome message
-        JFrame reDirectingFrame = new JFrame("Redirecting");
+        reDirectingFrame = new JFrame("Redirecting");
         reDirectingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create a JLabel for the welcome message

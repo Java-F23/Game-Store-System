@@ -76,7 +76,7 @@ public class Activity_3Controller implements ActionListener
                 break;
 
             case "Timer":
-                Authentication.authFrame.dispose(); // Close the welcome frame
+                Authentication.reDirectingFrame.dispose(); // Close the welcome frame
 
                 if(isPlayer)
                 {

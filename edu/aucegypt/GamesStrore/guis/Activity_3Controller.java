@@ -84,7 +84,7 @@ public class Activity_3Controller implements ActionListener
                 }
                 else
                 {
-                    Activity_4.openAdminWindow(administrator);
+                    Activity_4Controller.openAdminWindow(administrator);
                 }
                 break;
             default:

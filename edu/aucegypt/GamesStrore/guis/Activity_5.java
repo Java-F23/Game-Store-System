@@ -2,7 +2,6 @@ package edu.aucegypt.GamesStrore.guis;
 
 import javax.swing.*;
 
-import edu.aucegypt.GamesStrore.games.Game;
 import edu.aucegypt.GamesStrore.users.Player;
 
 import java.awt.*;
@@ -42,6 +41,7 @@ import java.util.ArrayList;
                 Activity_3.openLogInFrame();
             }
         });
+        
         menuBar.add(logout);
 
         // Set the menu bar for the frame
@@ -116,358 +116,265 @@ import java.util.ArrayList;
         if (menuName.equals("Games")) 
         {
             String[] gameItems = {"Play Game", "Purchase Game", "Refund Game", "View Purchased Games"};
-            for (String item : gameItems) {
-                menu.add(createMenuItem(item, player));
+            ArrayList<JMenuItem> items = GamesHandler(gameItems,player);
+            for(JMenuItem item : items)
+            {
+                menu.add(item);
             }
+
         } else if (menuName.equals("Friends")) 
         {
             String[] friendsItems = {"View Friends List", "Add a Friend", "Remove a Friend"};
-            for (String item : friendsItems) {
-                menu.add(createMenuItem(item, player));
+            ArrayList<JMenuItem> items = FriendsHandler(friendsItems,player);
+            for(JMenuItem item : items)
+            {
+                menu.add(item);
             }
+            
         } else if (menuName.equals("Favorites")) 
         {
             String[] favoritesItems = {"View Favorites List", "Add a game to Favorites List", "Remove a game from Favorites List"};
-            for (String item : favoritesItems) {
-                menu.add(createMenuItem(item, player));
+            ArrayList<JMenuItem> items = FavoritesHandler(favoritesItems,player);
+            for(JMenuItem item : items)
+            {
+                menu.add(item);
             }
+
         } else if (menuName.equals("Feedback")) 
         {
             String[] feedbackItems = {"Add your rating to a game", "Remove your rating for a game", "Add your review to a game", "Remove your review from a game"};
-            for (String item : feedbackItems) {
-                menu.add(createMenuItem(item, player));
+            ArrayList<JMenuItem> items = FeedbackHandler(feedbackItems,player);
+            for(JMenuItem item : items)
+            {
+                menu.add(item);
             }
+
         } else if (menuName.equals("Search")) 
         {
             String[] searchItems = {"Search games by genres", "Search games by release year", "Search games by release month", "View game details"};
-            for (String item : searchItems) {
-                menu.add(createMenuItem(item, player));
+            ArrayList<JMenuItem> items = SearchHandler(searchItems,player);
+            for(JMenuItem item : items)
+            {
+                menu.add(item);
             }
+
         } else if (menuName.equals("Wallet"))
         {
             String[] walletItems = {"View Wallet", "Add Money to Wallet"};
-            for (String item : walletItems) {
-                menu.add(createMenuItem(item, player));
+            ArrayList<JMenuItem> items = WalletHandler(walletItems, player);
+            for(JMenuItem item : items)
+            {
+                menu.add(item);
             }
         }
 
         return menu;
     }
 
-    // a method the handels the menue actions
-    private static JMenuItem createMenuItem(String item, Player player) {
-        JMenuItem menuItem = new JMenuItem(item);
-        menuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String input;
-                String input2;
-                int num;
+    private static ArrayList<JMenuItem> GamesHandler(String[] gameItems, Player player)
+    {
+        ArrayList<JMenuItem> list = new ArrayList<>();
+        Activity_5Controller_Games gamesListener = new Activity_5Controller_Games(player);
 
-                switch (item) 
-                {
-                    case "Play Game":
-                        input = JOptionPane.showInputDialog("Enter the title of the game you want to play");
-                        
-                        if(player.playGame(input))
-                        {
-                            JOptionPane.showMessageDialog(null, input + " is launching", "launching", JOptionPane.INFORMATION_MESSAGE);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Invalid Game Title or game not owned", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-                        
+        for (String item : gameItems) 
+        {
+            JMenuItem menuItem = new JMenuItem(item);
+            
+            switch (item) 
+            {
+                case "Play Game":
+                    menuItem.setActionCommand("Play Game");
                     break;
-
-                    case "Purchase Game":
-                        input = JOptionPane.showInputDialog("Enter the title of the game you want to purchase");
-                        
-                        if(player.purchaseGame(input).equals("add to library"))
-                        {
-                            listContent(player.getRecommendations(),true);
-
-                            JOptionPane.showMessageDialog(null, input + " add to library", "success", JOptionPane.INFORMATION_MESSAGE);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, " insufficient amount of money or invalid gameTitle", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-        
+                case "Purchase Game":
+                    menuItem.setActionCommand("Purchase Game");
                     break;
-
-                    case "Refund Game":
-                        input = JOptionPane.showInputDialog("Enter the title of the game you want to refund");
-                        
-                        if(player.refundGame(input).equals("game refunded"))
-                        {
-                            JOptionPane.showMessageDialog(null, input + "refunded", "success", JOptionPane.INFORMATION_MESSAGE);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-        
+                case "Refund Game":
+                    menuItem.setActionCommand("Refund Game");
                     break;
-                    case "View Purchased Games":
-                        ArrayList<String> purList = player.getPurchasedGames();
-                        StringBuilder pur = new StringBuilder();
-                        for (String s : purList) {
-                            pur.append(s).append("\n");
-                        }
-                        System.out.println(purList);
-                        JOptionPane.showMessageDialog(null, pur.toString());
-
+                case "View Purchased Games":
+                    menuItem.setActionCommand("View Purchased Games");
                     break;
-                    case "View Friends List":
-                        ArrayList<String> friendlist = player.getFriendsList();
-                        StringBuilder list = new StringBuilder();
-                        for (String friend : friendlist) {
-                            list.append(friend).append("\n");
-                        }
-                        System.out.println(friendlist);
-                        JOptionPane.showMessageDialog(null, list.toString());
-                    break;
-                    case "Add a Friend":
-                        input = JOptionPane.showInputDialog("Enter the name of the friend you want to add");
-                        
-                        if(player.addFriend(input))
-                        {
-                            JOptionPane.showMessageDialog(null, input + "is added", "success", JOptionPane.INFORMATION_MESSAGE);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-        
-                    break;
-                    case "Remove a Friend":
-                         input = JOptionPane.showInputDialog("Enter the name of the friend you want to add");
-                        
-                        if(player.removeFriend(input))
-                        {
-                            JOptionPane.showMessageDialog(null, input + "is removed", "success", JOptionPane.INFORMATION_MESSAGE);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-        
-                    break;
-                    case "View Favorites List":
-                        ArrayList<String> favouritelist = player.getfavoritesList();
-                        StringBuilder favlist = new StringBuilder();
-                        for (String fav : favouritelist) {
-                            favlist.append(fav).append("\n");
-                        }
-                        System.out.println(favouritelist);
-                        JOptionPane.showMessageDialog(null, favlist.toString());
-                    break;
-                    case "Add a game to Favorites List":
-                        input = JOptionPane.showInputDialog("Enter the name of the game you want to add to favourites");
-                        
-                        if(player.addToFavoritesList(input))
-                        {
-                            JOptionPane.showMessageDialog(null, input + "is added", "success", JOptionPane.INFORMATION_MESSAGE);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-                    break;
-                    case "Remove a game from Favorites List":
-                        input = JOptionPane.showInputDialog("Enter the name of the game you want to remove to favourites");
-                        
-                        if(player.removeFromFavoritesList(input))
-                        {
-                            JOptionPane.showMessageDialog(null, input + "is removed", "success", JOptionPane.INFORMATION_MESSAGE);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-                        // Handle favorites-related actions
-                        System.out.println("Favorites Item Selected: " + item);
-                        break;
-                    case "Add your rating to a game":
-                        input = JOptionPane.showInputDialog("Enter the name of the game you want to add a rating for");
-                        input2 = JOptionPane.showInputDialog("Enter the rating between 1-5");
-                        num = Integer.parseInt(input2);
-                        if(player.addRating(input, num))
-                        {
-                            JOptionPane.showMessageDialog(null, "Rating is added", "success", JOptionPane.INFORMATION_MESSAGE);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-                        // Handle favorites-related actions
-                        System.out.println("FeedBack Item Selected: " + item);
-                        break;
-                    case "Remove your rating for a game":
-                        input = JOptionPane.showInputDialog("Enter the name of the game you want to remove your rating for");
-                        if(player.removeRating(input).equals("rating removed"))
-                        {
-                            JOptionPane.showMessageDialog(null, "rating is removed", "success", JOptionPane.INFORMATION_MESSAGE);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-                        // Handle favorites-related actions
-                        System.out.println("FeedBack Item Selected: " + item);
-                        break;
-                    case "Add your review to a game":
-                        input = JOptionPane.showInputDialog("Enter the name of the game you want to add a review for");
-                        input2 = JOptionPane.showInputDialog("Enter the review");
-                        if(player.addReview(input, input2))
-                        {
-                            JOptionPane.showMessageDialog(null, "review is added", "success", JOptionPane.INFORMATION_MESSAGE);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-                        // Handle favorites-related actions
-                        System.out.println("FeedBack Item Selected: " + item);
-                        break;
-                    case "Remove your review from a game":
-                        // Handle feedback-related actions
-                        input = JOptionPane.showInputDialog("Enter the name of the game you want to remove your review for");
-                        if(player.removeReview(input).equals("review removed"))
-                        {
-                            JOptionPane.showMessageDialog(null, "review is removed", "success", JOptionPane.INFORMATION_MESSAGE);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-                        // Handle favorites-related actions
-                        System.out.println("FeedBack Item Selected: " + item);
-                        break;
-                    case "Search games by genres":
-
-                        input = JOptionPane.showInputDialog("Enter the tags separated by commas");
-
-                        String commaSeparatedString = input; 
-
-                        String[] parts = commaSeparatedString.split(",");
-
-                        ArrayList<String> T = new ArrayList<>();
-
-                        for (String part : parts) {
-                            T.add(part);
-                        }
-
-                        ArrayList<Game> tagSearch = player.tagsBasedSearchGUI(T);
-                        if(tagSearch != null)
-                        {
-                            listSearch(tagSearch);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-                    break;
-                        
-                    case "Search games by release year":
-                        input = JOptionPane.showInputDialog("Enter the target year");
-                        ArrayList<Game> yearSearch = player.yearBasedSearchGUI(Integer.parseInt(input));
-                        if(yearSearch != null)
-                        {
-                            listSearch(yearSearch);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-                    break;
-                    case "Search games by release month":
-                        input = JOptionPane.showInputDialog("Enter the target month");
-                        ArrayList<Game> monthSearch = player.monthBasedSearchGUI(Integer.parseInt(input));
-                        if(monthSearch != null)
-                        {
-                            listSearch(monthSearch);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-                    break;
-                        
-                    case "View game details":
-                        input = JOptionPane.showInputDialog("Enter the game title");
-                        Game game = player.fetchGameByTitle(input);
-                        if(game != null)
-                        {
-                            listGame(game);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-                    break;
-                    case "View Wallet":
-                        JOptionPane.showMessageDialog(null, "Amount is" + player.getWallet(), "Wallet", JOptionPane.INFORMATION_MESSAGE);
-                    break;
-
-                    case "Add Money to Wallet":
-                        input = JOptionPane.showInputDialog("Enter the amount to add to walltet");
-                        double num2 = Double.parseDouble(input);
-                        if(player.addMoney(num2))
-                        {
-                            JOptionPane.showMessageDialog(null, "Money is added", "success", JOptionPane.INFORMATION_MESSAGE);
-
-                        }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
-                        }
-                    break;
-                    default:
-                        System.out.println("Unknown Item Selected: " + item);
-                        break;
-                }
-                
+                default:
+                    System.out.println("Invalid game item: " + item);
             }
-        });
-        return menuItem;
-        
+            menuItem.addActionListener(gamesListener);
+            //JMenuItem menuItem = createMenuItem(item, player);
+            list.add(menuItem);
+        }
+
+        return list;
     }
 
+    private static ArrayList<JMenuItem> FriendsHandler(String[] friendsItems, Player player)
+    {
+        ArrayList<JMenuItem> list = new ArrayList<>();
+        Activity_5Controller_Friends friendsListener = new Activity_5Controller_Friends(player);
+
+        for (String item : friendsItems) 
+        {
+            JMenuItem menuItem = new JMenuItem(item);
+
+            switch (item) 
+            {
+                case "View Friends List":
+                    menuItem.setActionCommand("View Friends List");
+                    break;
+                case "Add a Friend":
+                    menuItem.setActionCommand("Add a Friend");
+                    break;
+                case "Remove a Friend":
+                    menuItem.setActionCommand("Remove a Friend");
+                    break;
+                default:
+                    System.out.println("Invalid friends item: " + item);
+            }
+
+            //JMenuItem menuItem = createMenuItem(item, player);
+            menuItem.addActionListener(friendsListener);
+            list.add(menuItem);
+        }
+        
+        return list;
+    }
+
+    private static ArrayList<JMenuItem> FavoritesHandler(String[] favoritesItems, Player player)
+    {
+        ArrayList<JMenuItem> list = new ArrayList<>();
+        Activity_5Controller_Favorites favoritesListener = new Activity_5Controller_Favorites(player);
+
+        for (String item : favoritesItems) 
+        {
+            JMenuItem menuItem = new JMenuItem(item);
+
+            switch (item) 
+            {
+                case "View Favorites List":
+                    menuItem.setActionCommand("View Favorites List");
+                    break;
+                case "Add a game to Favorites List":
+                    menuItem.setActionCommand("Add a game to Favorites List");
+                    break;
+                case "Remove a game from Favorites List":
+                    menuItem.setActionCommand("Remove a game from Favorites List");
+                    break;
+                default:
+                    System.out.println("Invalid favorites item: " + item);
+            }
+
+            //JMenuItem menuItem = createMenuItem(item, player);
+            menuItem.addActionListener(favoritesListener);
+            list.add(menuItem);
+        }
+        
+        return list;
+    }
+
+    private static ArrayList<JMenuItem> FeedbackHandler(String[] feedbackItems, Player player)
+    {
+        ArrayList<JMenuItem> list = new ArrayList<>();
+        Activity_5Controller_FeedBack feedBackListener = new Activity_5Controller_FeedBack(player);
+
+
+        for (String item : feedbackItems) 
+        {
+            JMenuItem menuItem = new JMenuItem(item);
+
+            switch (item) 
+            {
+                case "Add your rating to a game":
+                    menuItem.setActionCommand("Add your rating to a game");
+                    break;
+                case "Remove your rating for a game":
+                    menuItem.setActionCommand("Remove your rating for a game");
+                    break;
+                case "Add your review to a game":
+                    menuItem.setActionCommand("Add your review to a game");
+                    break;
+                case "Remove your review from a game":
+                    menuItem.setActionCommand("Remove your review from a game");
+                    break;
+                default:
+                    System.out.println("Invalid feedback item: " + item);
+            }
+    
+            
+            //JMenuItem menuItem = createMenuItem(item, player);
+            menuItem.addActionListener(feedBackListener);
+
+            list.add(menuItem);
+        }
+        
+        return list;
+    }
+
+    private static ArrayList<JMenuItem> SearchHandler(String[] searchItems, Player player)
+    {
+        ArrayList<JMenuItem> list = new ArrayList<>();
+        Activity_5Controller_Search searchListener = new Activity_5Controller_Search(player);
+
+        for (String item : searchItems) 
+        {
+            JMenuItem menuItem = new JMenuItem(item);
+            switch (item) 
+            {
+                case "Search games by genres":
+                    menuItem.setActionCommand("Search games by genres");
+                    break;
+                case "Search games by release year":
+                    menuItem.setActionCommand("Search games by release year");
+                    break;
+                case "Search games by release month":
+                    menuItem.setActionCommand("Search games by release month");
+                    break;
+                case "View game details":
+                    menuItem.setActionCommand("View game details");
+                    break;
+                default:
+                    System.out.println("Invalid search item: " + item);
+            }
+    
+            //JMenuItem menuItem = createMenuItem(item, player);
+
+            menuItem.addActionListener(searchListener);
+            list.add(menuItem);
+        }
+        
+        return list;
+    }
+
+    private static ArrayList<JMenuItem> WalletHandler(String[] walletItems, Player player)
+    {
+        ArrayList<JMenuItem> list = new ArrayList<>();
+        Activity_5Controller_Wallet walletListener = new Activity_5Controller_Wallet(player);
+
+
+        for (String item : walletItems) 
+        {
+            JMenuItem menuItem = new JMenuItem(item);
+            switch (item) 
+            {
+                case "View Wallet":
+                    menuItem.setActionCommand("View Wallet");
+                    break;
+                case "Add Money to Wallet":
+                    menuItem.setActionCommand("Add Money to Wallet");
+                    break;
+                default:
+                    System.out.println("Invalid wallet item: " + item);
+            }
+    
+            //JMenuItem menuItem = createMenuItem(item, player);
+
+            menuItem.addActionListener(walletListener);
+            list.add(menuItem);
+        }
+        
+        return list;
+    }
+
+
     // a list of helper functions
-    private static void listContent(ArrayList<String> content, boolean listReccomendation)
+    protected static void listContent(ArrayList<String> content, boolean listReccomendation)
     {
         if(listReccomendation)
         {
@@ -485,80 +392,4 @@ import java.util.ArrayList;
         }
 
     }
-
-    private static void listSearch(ArrayList<Game> games)
-    {
-        // Create a JTextArea to display the reports
-        JTextArea displayTextArea = new JTextArea();
-        displayTextArea.setWrapStyleWord(true);
-        displayTextArea.setLineWrap(true);
-        displayTextArea.setEditable(false);
-
-        // Create a JScrollPane to make the JTextArea scrollable
-        JScrollPane scrollPane = new JScrollPane(displayTextArea);
-
-        // Add the JScrollPane to a new JFrame
-        JFrame displayFrame = new JFrame("Prefrence Based Search");
-        displayFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        displayFrame.add(scrollPane);
-        
-        // Add the game sales report to the JTextArea
-        displayTextArea.append("Games Based on Prefrence search:\n\n");
-        for (Game game : games) {
-            displayTextArea.append(game.getGameName() +
-                " - Release Date: " + game.getReleaseDate() +
-                " - price: " + game.getPrice()  + "\n");
-        }
-
-        // Add a separator between the two reports
-        displayTextArea.append("\n");
-
-        
-
-        // Set the size and make the frame visible
-        displayFrame.setSize(400, 400);
-        displayFrame.setLocationRelativeTo(null);
-        displayFrame.setVisible(true);
-    }
-
-    private static void listGame(Game game)
-    {
-        // Create a JTextArea to display the reports
-        JTextArea displayTextArea = new JTextArea();
-        displayTextArea.setWrapStyleWord(true);
-        displayTextArea.setLineWrap(true);
-        displayTextArea.setEditable(false);
-
-        // Create a JScrollPane to make the JTextArea scrollable
-        JScrollPane scrollPane = new JScrollPane(displayTextArea);
-
-        // Add the JScrollPane to a new JFrame
-        JFrame displayFrame = new JFrame("Detailed game");
-        displayFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        displayFrame.add(scrollPane);
-        
-        // Add the game sales report to the JTextArea
-        displayTextArea.append("Game Details:\n \n");
-        
-        displayTextArea.append(
-        " - Name: " + game.getGameName() + "\n" +
-        " - Discription: " + game.getGameDescription() + "\n" +
-        " - Developer: " + game.getDeveloper() + "\n" +
-        " - Publisher: " + game.getPublisher() + "\n" +
-        " - Release Date: " + game.getReleaseDate() + "\n" +
-        " - price: " + game.getPrice()  + "\n\n"
-        );
-        
-
-        // Add a separator between the two reports
-        displayTextArea.append("\n");
-
-        
-
-        // Set the size and make the frame visible
-        displayFrame.setSize(500, 400);
-        displayFrame.setLocationRelativeTo(null);
-        displayFrame.setVisible(true);
-    }
-
 }

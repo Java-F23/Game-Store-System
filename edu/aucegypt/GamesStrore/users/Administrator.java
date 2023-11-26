@@ -2,12 +2,10 @@ package edu.aucegypt.GamesStrore.users;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import edu.aucegypt.GamesStrore.games.Game;
 import edu.aucegypt.GamesStrore.games.GamesDB;
-import edu.aucegypt.GamesStrore.games.Rate;
-import edu.aucegypt.GamesStrore.games.Review;
-
 
 public class Administrator extends User 
 {
@@ -149,114 +147,7 @@ public class Administrator extends User
     }
 
 
-    /**
-     * Generate sales and statistics reports for games and players in the database.
-     *
-     * @return true if the reports are generated successfully.
-     */
-    public boolean generateReports() 
-    {
-        ArrayList<Game> games = GamesDB.getGameList();
-        ArrayList<Player> players = PlayersDB.getPlayerList();
-
-        
-        System.out.println("Game Sales Report:");
-        for (Game game : games) {
-            System.out.println(game.getGameName() +
-                                 " - Downloads: " + game.getNumberOfDownloads()
-                                 + " - Number of ratings: " + game.getNumberOfRatings()
-                                 + " - Number of reviews: " + game.getNumberOfReviews());
-        }
-
-        System.out.println("Player Statistics Report:");
-        for (Player player : players) {
-            System.out.println(player.getUsername() +
-                                 " Own " + player.getPurchasedGames().size() + " games " +
-                                 " - Wallet Balance: " + player.getWallet());
-        }
-
-        return true;
-    }
     
-    /**
-     * View reviews for a specific game based on its title.
-     *
-     * @param gameTitle The title of the game for which reviews are to be viewed.
-     * @return true if reviews are successfully viewed, false if the game doesn't exist.
-     */
-    public boolean viewGameReviews(String gameTitle) 
-    {
-
-        try 
-        {
-            if(gameTitle == null)
-            {
-                throw new IllegalArgumentException("Null refrence game title");
-            }
-
-            if(gameTitle.isEmpty())
-            {
-                throw new IllegalArgumentException("No game title");
-            }
-            
-        } 
-        catch (IllegalArgumentException e) 
-        {
-            System.out.println("Invalid argument, please re-enter");
-            return false;
-        }
-
-        Game game = GamesDB.searchByTitle(gameTitle);
-
-
-        ArrayList<Review> reviews = game.getReviews();
-        System.out.println("Reviews for " + game.getGameName() + ":");
-        for (Review review : reviews) {
-            System.out.println(review);
-        }
-        return true;
-        
-        
-    }
-
-    /**
-     * View ratings for a specific game based on its title.
-     *
-     * @param gameTitle The title of the game for which ratings are to be viewed.
-     * @return true if ratings are successfully viewed, false if the game doesn't exist.
-     */
-    public boolean viewGameRatings(String gameTitle) 
-    {
-        try 
-        {
-            if(gameTitle == null)
-            {
-                throw new IllegalArgumentException("Null refrence game title");
-            }
-
-            if(gameTitle.isEmpty())
-            {
-                throw new IllegalArgumentException("No game title");
-            }
-            
-        } 
-        catch (IllegalArgumentException e) 
-        {
-            System.out.println("Invalid argument, please re-enter");
-            return false;
-        }
-
-        Game game = GamesDB.searchByTitle(gameTitle);
-        
-
-        ArrayList<Rate> ratings = game.getRatings();
-        System.out.println("Ratings for " + game.getGameName() + ":");
-        for (Rate rating : ratings) {
-            System.out.println(rating);
-        }
-        return true;
-        
-    }
 
     /**
      * Apply a discount to a game in the database.
@@ -347,12 +238,12 @@ public class Administrator extends User
         
     }
 
-    public ArrayList<Game> fetchGamesDB()
+    public LinkedList<Game> fetchGamesDB()
     {
         return GamesDB.getGameList();
     }
 
-    public ArrayList<Player> fetchPlayersDB()
+    public LinkedList<Player> fetchPlayersDB()
     {
         return PlayersDB.getPlayerList();
     }

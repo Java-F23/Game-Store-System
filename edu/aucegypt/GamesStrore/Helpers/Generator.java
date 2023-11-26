@@ -2,6 +2,7 @@ package edu.aucegypt.GamesStrore.Helpers;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import edu.aucegypt.GamesStrore.games.Game;
 import edu.aucegypt.GamesStrore.games.GamesDB;
@@ -10,6 +11,7 @@ import edu.aucegypt.GamesStrore.users.AdministratorDB;
 import edu.aucegypt.GamesStrore.users.Player;
 import edu.aucegypt.GamesStrore.users.PlayersDB;
 
+//Generator class to generate dummy data
 public class Generator 
 {
     public static void playerGenerator()
@@ -26,7 +28,7 @@ public class Generator
         Player player10 = new Player("player42", "mysecurepassword", "player.42@mail.com");
 
 
-        ArrayList<Player> list = PlayersDB.getPlayerList();
+        LinkedList<Player> list = PlayersDB.getPlayerList();
         list.add(player1);
         list.add(player2);
         list.add(player3);
@@ -54,7 +56,7 @@ public class Generator
         Administrator admin10 = new Administrator("new_admin10", "new_password10", "new_admin10@example.com");
 
     
-        ArrayList<Administrator> list = AdministratorDB.getAdministratorList();
+        LinkedList<Administrator> list = AdministratorDB.getAdministratorList();
         list.add(admin1);
         list.add(admin2);
         list.add(admin3);
@@ -70,47 +72,47 @@ public class Generator
 
     public static void gameGenrator()
     {
-        Game game1 = new Game("The Witcher 3: Wild Hunt", "An open-world RPG", 0, new ArrayList<>(), 0, new ArrayList<>(),
+        Game game1 = new Game("The Witcher 3: Wild Hunt", "An open-world RPG", 0, new LinkedList<>(), 0, new LinkedList<>(),
             "2023-09-28", "CD Projekt Red", "CD Projekt", new ArrayList<>(), new BigDecimal("59.99"),
             new BigDecimal("59.99"), new BigDecimal("0.00"), 0);
 
-        Game game2 = new Game("Cyberpunk 2077", "A futuristic RPG", 0, new ArrayList<>(), 0, new ArrayList<>(),
+        Game game2 = new Game("Cyberpunk 2077", "A futuristic RPG", 0, new LinkedList<>(), 0, new LinkedList<>(),
             "2023-09-29", "CD Projekt Red", "CD Projekt", new ArrayList<>(), new BigDecimal("49.99"),
             new BigDecimal("49.99"), new BigDecimal("0.00"), 0);
 
-        Game game3 = new Game("Red Dead Redemption 2", "An action-adventure game", 0, new ArrayList<>(), 0, new ArrayList<>(),
+        Game game3 = new Game("Red Dead Redemption 2", "An action-adventure game", 0, new LinkedList<>(), 0, new LinkedList<>(),
             "2023-09-30", "Rockstar Games", "Rockstar Games", new ArrayList<>(), new BigDecimal("69.99"),
             new BigDecimal("69.99"), new BigDecimal("0.00"), 0);
 
-        Game game4 = new Game("Minecraft", "A sandbox game", 0, new ArrayList<>(), 0, new ArrayList<>(),
+        Game game4 = new Game("Minecraft", "A sandbox game", 0, new LinkedList<>(), 0, new LinkedList<>(),
             "2023-10-01", "Mojang", "Microsoft Studios", new ArrayList<>(), new BigDecimal("29.99"),
             new BigDecimal("29.99"), new BigDecimal("0.00"), 0);
 
-        Game game5 = new Game("Among Us", "A multiplayer game", 0, new ArrayList<>(), 0, new ArrayList<>(),
+        Game game5 = new Game("Among Us", "A multiplayer game", 0, new LinkedList<>(), 0, new LinkedList<>(),
             "2023-10-02", "InnerSloth", "InnerSloth", new ArrayList<>(), new BigDecimal("4.99"),
             new BigDecimal("4.99"), new BigDecimal("0.00"), 0);
 
-        Game game6 = new Game("Fortnite", "A battle royale game", 0, new ArrayList<>(), 0, new ArrayList<>(),
+        Game game6 = new Game("Fortnite", "A battle royale game", 0, new LinkedList<>(), 0, new LinkedList<>(),
             "2023-10-03", "Epic Games", "Epic Games", new ArrayList<>(), new BigDecimal("1.00"),
             new BigDecimal("1.00"), new BigDecimal("0.00"), 0);
 
-        Game game7 = new Game("The Legend of Zelda", "An action-adventure game", 0, new ArrayList<>(), 0, new ArrayList<>(),
+        Game game7 = new Game("The Legend of Zelda", "An action-adventure game", 0, new LinkedList<>(), 0, new LinkedList<>(),
             "2023-10-04", "Nintendo", "Nintendo", new ArrayList<>(), new BigDecimal("59.99"),
             new BigDecimal("59.99"), new BigDecimal("0.00"), 0);
 
-        Game game8 = new Game("Call of Duty", "A first-person shooter", 0, new ArrayList<>(), 0, new ArrayList<>(),
+        Game game8 = new Game("Call of Duty", "A first-person shooter", 0, new LinkedList<>(), 0, new LinkedList<>(),
             "2022-10-05", "Infinity Ward", "Activision", new ArrayList<>(), new BigDecimal("1.00"),
             new BigDecimal("1.00"), new BigDecimal("0.00"), 0);
 
-        Game game9 = new Game("Apex Legends", "A battle royale game", 0, new ArrayList<>(), 0, new ArrayList<>(),
+        Game game9 = new Game("Apex Legends", "A battle royale game", 0, new LinkedList<>(), 0, new LinkedList<>(),
             "2022-10-06", "Respawn Entertainment", "Electronic Arts", new ArrayList<>(), new BigDecimal("1.00"),
             new BigDecimal("1.00"), new BigDecimal("0.00"), 0);
 
-        Game game10 = new Game("CSGO", "A first-person shooter", 0, new ArrayList<>(), 0, new ArrayList<>(),
+        Game game10 = new Game("CSGO", "A first-person shooter", 0, new LinkedList<>(), 0, new LinkedList<>(),
             "2022-10-07", "Valve", "Valve", new ArrayList<>(), new BigDecimal("14.99"),
             new BigDecimal("14.99"), new BigDecimal("0.00"), 0);
 
-        ArrayList<Game> list = GamesDB.getGameList();
+        LinkedList<Game> list = GamesDB.getGameList();
         list.add(game1);
         list.add(game2);
         list.add(game3);

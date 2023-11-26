@@ -1,7 +1,7 @@
 package edu.aucegypt.GamesStrore.main;
 
 import edu.aucegypt.GamesStrore.Helpers.Generator;
-import edu.aucegypt.GamesStrore.guis.Activity_1;
+import edu.aucegypt.GamesStrore.guis.Activity_1Controller;
 
 
 public class GamesStrore_Sys_GUI 
@@ -13,6 +13,6 @@ public class GamesStrore_Sys_GUI
         Generator.adminGenerator();
         Generator.gameGenrator();
         
-        Activity_1.WelcomeMsg();
+        Activity_1Controller.WelcomeMsg();
     }
 }

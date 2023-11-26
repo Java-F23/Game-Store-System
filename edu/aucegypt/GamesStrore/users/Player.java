@@ -2,11 +2,17 @@ package edu.aucegypt.GamesStrore.users;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 import edu.aucegypt.GamesStrore.games.Game;
 import edu.aucegypt.GamesStrore.games.GamesDB;
-import edu.aucegypt.GamesStrore.games.Rate;
-import edu.aucegypt.GamesStrore.games.Review;
+
+/**
+ * The Player class represents a player in the game store system.
+ * It extends the User class and includes attributes and methods specific to players.
+ */
 
 public class Player extends User {
 
@@ -16,7 +22,15 @@ public class Player extends User {
     private ArrayList<String> friendsList; // List of friends
 
     
-    // Class Constructors
+    // Constructors
+    /**
+     * Constructs a new Player object with the given username, password, and email.
+     * Initializes wallet, favoritesList, purchasedGames, and friendsList.
+     *
+     * @param username The username of the player.
+     * @param password The password of the player.
+     * @param email    The email of the player.
+     */
     public Player(String username, String password, String email) 
     {
         super(username, password, email);
@@ -28,6 +42,18 @@ public class Player extends User {
     }
 
 
+    /**
+     * Constructs a new Player object with the given username, password, email, wallet balance,
+     * favorite games, purchased games, and friends list.
+     *
+     * @param username       The username of the player.
+     * @param password       The password of the player.
+     * @param email          The email of the player.
+     * @param wallet         The wallet balance of the player.
+     * @param favoritesList  The list of favorite games of the player.
+     * @param purchasedGames The list of purchased games of the player.
+     * @param friendsList    The list of friends of the player.
+     */
 
     public Player(String username, String password, String email, BigDecimal wallet,
                   ArrayList<String> favoritesList, ArrayList<String> purchasedGames, ArrayList<String> friendsList) 
@@ -287,7 +313,7 @@ public class Player extends User {
             return false;
         }
 
-        Player player = PlayersDB.searchByname(friendName);
+        Player player = PlayersDB.searchByName(friendName);
 
         
         if(player != null)
@@ -343,7 +369,7 @@ public class Player extends User {
             return false;
         }
 
-        Player player = PlayersDB.searchByname(friendName);
+        Player player = PlayersDB.searchByName(friendName);
 
         
         if(player != null)
@@ -498,40 +524,6 @@ public class Player extends User {
         return status;      
     }
 
-    // Methods to view lists and perform actions
-
-    /**
-     * Displays the list of games that the player has purchased.
-     */
-    public void viewPurchasedGames()
-    {
-        for(String title : this.purchasedGames)
-        {
-            System.out.println(title);
-        }
-    }
-
-    /**
-     * Displays the list of games that the player has added to their favorites.
-     */
-    public void viewFavoritesList()
-    {
-        for(String title : this.favoritesList)
-        {
-            System.out.println(title);
-        }
-    }
-
-    /**
-     * Displays the list of friends that the player has in their friends list.
-     */
-    public void viewFriendsList()
-    {
-        for(String name : this.friendsList)
-        {
-            System.out.println(name);
-        }
-    }
 
     // Methods to rate and review games
 
@@ -586,8 +578,12 @@ public class Player extends User {
             
             int index = GamesDB.getGameList().indexOf(game);
     
-            Rate rating = new Rate(rate, this.getUsername());
-            ArrayList<Rate> rateList = game.getRatings();
+            //Rate rating = new Rate(rate, this.getUsername());
+            Map<String, Integer> rating = new HashMap<>();
+            rating.put(this.getUsername(), rate);
+
+
+            LinkedList<Map<String, Integer>> rateList = game.getRatings();
             rateList.add(rating);
             game.setRatings(rateList);
             game.setNumberOfRatings(game.getNumberOfRatings()+1);
@@ -648,27 +644,23 @@ public class Player extends User {
         {
             int index = GamesDB.getGameList().indexOf(game);
     
-            ArrayList<Rate> rateList = game.getRatings();
-            for(Rate rate : rateList)
-            {
-                if(rate.getPlayerName().equals(this.getUsername()))
-                {
-                    rateList.remove(rate);
-                    game.setRatings(rateList);
-                    game.setNumberOfRatings(game.getNumberOfRatings()-1);
+            LinkedList<Map<String, Integer>> rateList = game.getRatings();
 
-                    GamesDB.editGame(index, game);
-                    System.out.println("your rating was removed");
-                    found = true;
-                    status = "rating removed";
-                    break;
-                }
+            found = rateList.removeIf(map -> map.containsKey(this.getUsername()));
+            
+            if(found)
+            {
+                game.setRatings(rateList);
+                game.setNumberOfRatings(game.getNumberOfRatings()-1);
+                GamesDB.editGame(index, game);
+                System.out.println("your rating was removed");
+                status = "rating removed";
+
             }
-            if(!found)
+            else
             {
                 System.out.println("no rating was found");
                 status = "rating no found";
-
             }
         }
         else
@@ -734,9 +726,11 @@ public class Player extends User {
         if(game != null)
         {
             int index = GamesDB.getGameList().indexOf(game);
-    
-            Review rev = new Review(review, this.getUsername());
-            ArrayList<Review> reviewList = game.getReviews();
+            
+            Map<String, String> rev = new HashMap<>();
+            rev.put(this.getUsername(), review);
+
+            LinkedList<Map<String, String>> reviewList = game.getReviews();
             reviewList.add(rev);
             game.setReviews(reviewList);
             game.setNumberOfReviews(game.getNumberOfReviews()+1);
@@ -795,28 +789,25 @@ public class Player extends User {
         {
             int index = GamesDB.getGameList().indexOf(game);
     
-            ArrayList<Review> reviewsList = game.getReviews();
-            for(Review review : reviewsList)
-            {
-                if(review.getPlayerName().equals(this.getUsername()))
-                {
-                    reviewsList.remove(review);
-                    game.setReviews(reviewsList);
-                    game.setNumberOfReviews(game.getNumberOfReviews()-1);
-
-                    GamesDB.editGame(index, game);
-                    System.out.println("your review was removed");
-                    found = true;
-                    status = "review removed";
-                    break;
-                }
-            }
+            LinkedList<Map<String, String>> reviewsList = game.getReviews();
+            found = reviewsList.removeIf(map -> map.containsKey(this.getUsername()));
+            
             if(!found)
+            {
+                
+                game.setReviews(reviewsList);
+                game.setNumberOfReviews(game.getNumberOfReviews()-1);
+                GamesDB.editGame(index, game);
+                System.out.println("your review was removed");
+                found = true;
+                status = "review removed";
+            }
+            else
             {
                 System.out.println("no review was found");
                 status = "review no found";
-
             }
+           
         }
         else
         {
@@ -849,58 +840,22 @@ public class Player extends User {
         return PlayersDB.logIn(this);
     }
 
-    /**
-     * Displays the list of games available in the store.
-     */
-    public boolean viewGames()
-    {
-        GamesDB.viewGames();
-        return true;
-    }
+   
 
     public ArrayList<String> getGames()
     {
-        ArrayList<Game> games = GamesDB.getGameList();
+        LinkedList<Game> games = GamesDB.getGameList();
         ArrayList<String> gameNames = new ArrayList<>();
 
         for (Game game : games) {
-            gameNames.add(game.getGameName());
+            gameNames.add(game.getGameName().toString());
         }
 
         return gameNames;
         
     }
 
-    /**
-     * Allows the player to search for games based on a single genre tag.
-     *
-     * @param genreTag The genre tag to search for.
-     * @return true if the search was successful, false otherwise.
-     */
-    public boolean tagBasedSearch(String genreTag)
-    {
-        try
-        {
-            if(genreTag == null)
-            {
-                throw new IllegalArgumentException("Null refrence game tag");
-            }
-
-            if(genreTag.isEmpty())
-            {
-                throw new IllegalArgumentException("No game tag");
-            }
-        }
-        catch (IllegalArgumentException e) 
-        {
-            System.out.println("Invalid genreTag, please re-enter");
-            return false;
-        }
-
-        GamesDB.tagBasedSearch(genreTag);
-
-        return true;
-    }
+    
 
     /**
      * Allows the player to search for games based on multiple genre tags.
@@ -908,37 +863,7 @@ public class Player extends User {
      * @param genreTags The list of genre tags to search for.
      * @return true if the search was successful, false otherwise.
      */
-    public boolean tagsBasedSearch(ArrayList<String> genreTags)
-    {
-        try
-        {
-            if(genreTags == null)
-            {
-                throw new IllegalArgumentException("Null refrence game tags");
-            }
-
-            if(genreTags.isEmpty())
-            {
-                throw new IllegalArgumentException("No game tags");
-            }
-        }
-        catch (IllegalArgumentException e) 
-        {
-            System.out.println("Invalid genreTags, please re-enter");
-            return false;
-        }
-
-        GamesDB.tagsBasedSearch(genreTags);
-        return true;
-    }
-
-    /**
-     * Allows the player to search for games based on multiple genre tags.
-     *
-     * @param genreTags The list of genre tags to search for.
-     * @return true if the search was successful, false otherwise.
-     */
-    public ArrayList<Game> tagsBasedSearchGUI(ArrayList<String> genreTags)
+    public LinkedList<Game> tagsBasedSearchGUI(ArrayList<String> genreTags)
     {
         try
         {
@@ -962,30 +887,7 @@ public class Player extends User {
         
     }
 
-    /**
-     * Allows the player to search for games based on a specific release year.
-     *
-     * @param year The release year to search for.
-     * @return true if the search was successful, false otherwise.
-     */
-    public boolean yearBasedSearch(int year)
-    {
-        try
-        {
-            if (year < 0) 
-            {
-                throw new IllegalArgumentException("Invalid year value. Year must be non-negative.");
-            }
-        }
-        catch (IllegalArgumentException e) 
-        {
-            System.out.println("Invalid year, please re-enter");
-            return false;
-        }
-
-        GamesDB.yearBasedSearch(year);
-        return true;
-    }
+    
 
     /**
      * Allows the player to search for games based on a specific release year.
@@ -993,7 +895,7 @@ public class Player extends User {
      * @param year The release year to search for.
      * @return true if the search was successful, false otherwise.
      */
-    public ArrayList<Game> yearBasedSearchGUI(int year)
+    public LinkedList<Game> yearBasedSearchGUI(int year)
     {
         try
         {
@@ -1012,29 +914,7 @@ public class Player extends User {
         
     }
     
-    /**
-     * Allows the player to search for games based on a specific release month.
-     *
-     * @param month The release month to search for (1 to 12).
-     * @return true if the search was successful, false otherwise.
-     */
-    public boolean monthBasedSearch(int month)
-    {
-        try
-        {
-            if (month < 1 || month > 12) 
-            {
-                throw new IllegalArgumentException("Invalid month value. Month must be between 1 and 12.");
-            }
-        }
-        catch (IllegalArgumentException e) 
-        {
-            System.out.println("Invalid month, please re-enter");
-            return false;
-        }
-        GamesDB.monthBasedSearch(month);   
-        return true;
-    }
+    
 
     /**
      * Allows the player to search for games based on a specific release month.
@@ -1042,7 +922,7 @@ public class Player extends User {
      * @param month The release month to search for (1 to 12).
      * @return true if the search was successful, false otherwise.
      */
-    public ArrayList<Game> monthBasedSearchGUI(int month)
+    public LinkedList<Game> monthBasedSearchGUI(int month)
     {
         try
         {
@@ -1060,51 +940,7 @@ public class Player extends User {
         
     }
 
-    /**
-     * Displays detailed information about a specific game.
-     *
-     * @param gameTitle The title of the game to display details for.
-     * @return true if the game details were displayed, false if the game was not found.
-     */
-    public boolean displayGameDetailed(String gameTitle)
-    {
-        boolean found = false;
-
-        try 
-        {
-            if(gameTitle == null)
-            {
-                throw new IllegalArgumentException("Null refrence game title");
-            }
-
-            if(gameTitle.isEmpty())
-            {
-                throw new IllegalArgumentException("No game title");
-            }
-            
-        } 
-        catch (IllegalArgumentException e) 
-        {
-            System.out.println("Invalid argument, please re-enter");
-            return false;
-        }
-
-        
-        Game game = GamesDB.searchByTitle(gameTitle);
-        if(game != null)
-        {
-            GamesDB.displayGameDetailed(game);
-            found = true;
-        }
-        else
-        {
-            found = false;
-        }
-        
-
-        return found;
-
-    }
+    
 
     public Game fetchGameByTitle(String gameTitle)
     {
@@ -1142,68 +978,26 @@ public class Player extends User {
     }
 
 
-    /**
-     * Provides game recommendations to the player based on their purchase history.
-     */
-    public void viewRecommendations()
-    {
-        System.out.println("These recommendations are based on your purchacing prefrences");
-
-        ArrayList<String> recommendations = new ArrayList<>();
-
-        
-
-        for(Game game : GamesDB.getGameList())
-        {
-            for(String title : this.purchasedGames)
-            {
-                Game temp = fetchGameByTitle(title);
-
-                for(String gameTag : temp.getGenreTags())
-                {
-                    if(game.getGenreTags().contains(gameTag) && !game.getGameName().equals(title))
-                    {
-                        recommendations.add(game.getGameName());
-                    }
-                }
-            }
-        }
-
-        
-
-        
-        ArrayList<String> cleanedList = new ArrayList<>();
-        for (String title : recommendations) {
-            if (!cleanedList.contains(title)) {
-                cleanedList.add(title);
-            }
-        }
-
-        for(String s : cleanedList)
-        {
-            System.out.println(s);
-        }
-    }
+    
 
     public ArrayList<String> getRecommendations()
     {
         ArrayList<String> recommendations =  new ArrayList<>();
 
-        for(Game game : GamesDB.getGameList())
-        {
-            for(String title : this.purchasedGames)
-            {
-                Game temp = fetchGameByTitle(title);
-
-                for(String gameTag : temp.getGenreTags())
-                {
-                    if(game.getGenreTags().contains(gameTag) && !game.getGameName().equals(title))
-                    {
-                        recommendations.add(game.getGameName());
-                    }
-                }
-            }
-        }
+        
+        
+        GamesDB.getGameList().stream()
+                .flatMap(game -> this.purchasedGames.stream().map(this::fetchGameByTitle))
+                .filter(temp -> temp != null)
+                .flatMap(temp -> temp.getGenreTags().stream())
+                .distinct()
+                .forEach(gameTag -> {
+                    GamesDB.getGameList().stream()
+                        .filter(game -> !this.purchasedGames.contains(game.getGameName().toString()))
+                        .filter(game -> game.getGenreTags().contains(gameTag))
+                        .map(game -> game.getGameName().toString())
+                        .forEach(recommendations::add);
+                });
 
         
 
@@ -1217,6 +1011,8 @@ public class Player extends User {
 
         return recommendations;
     }
+
+    
 
 
     // Overridden toString method to provide a string representation of the Player object

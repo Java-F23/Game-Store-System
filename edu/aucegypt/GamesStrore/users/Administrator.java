@@ -2,12 +2,11 @@ package edu.aucegypt.GamesStrore.users;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Map;
 
 import edu.aucegypt.GamesStrore.games.Game;
 import edu.aucegypt.GamesStrore.games.GamesDB;
-import edu.aucegypt.GamesStrore.games.Rate;
-import edu.aucegypt.GamesStrore.games.Review;
-
 
 public class Administrator extends User 
 {
@@ -209,9 +208,9 @@ public class Administrator extends User
         Game game = GamesDB.searchByTitle(gameTitle);
 
 
-        ArrayList<Review> reviews = game.getReviews();
+        LinkedList<Map<String, String>> reviews = game.getReviews();
         System.out.println("Reviews for " + game.getGameName() + ":");
-        for (Review review : reviews) {
+        for (Map<String, String> review : reviews) {
             System.out.println(review);
         }
         return true;
@@ -249,9 +248,9 @@ public class Administrator extends User
         Game game = GamesDB.searchByTitle(gameTitle);
         
 
-        ArrayList<Rate> ratings = game.getRatings();
+        LinkedList<Map<String, Integer>> ratings = game.getRatings();
         System.out.println("Ratings for " + game.getGameName() + ":");
-        for (Rate rating : ratings) {
+        for (Map<String, Integer> rating : ratings) {
             System.out.println(rating);
         }
         return true;

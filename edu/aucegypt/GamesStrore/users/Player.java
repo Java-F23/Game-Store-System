@@ -2,11 +2,12 @@ package edu.aucegypt.GamesStrore.users;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 import edu.aucegypt.GamesStrore.games.Game;
 import edu.aucegypt.GamesStrore.games.GamesDB;
-import edu.aucegypt.GamesStrore.games.Rate;
-import edu.aucegypt.GamesStrore.games.Review;
 
 public class Player extends User {
 
@@ -586,8 +587,12 @@ public class Player extends User {
             
             int index = GamesDB.getGameList().indexOf(game);
     
-            Rate rating = new Rate(rate, this.getUsername());
-            ArrayList<Rate> rateList = game.getRatings();
+            //Rate rating = new Rate(rate, this.getUsername());
+            Map<String, Integer> rating = new HashMap<>();
+            rating.put(this.getUsername(), rate);
+
+
+            LinkedList<Map<String, Integer>> rateList = game.getRatings();
             rateList.add(rating);
             game.setRatings(rateList);
             game.setNumberOfRatings(game.getNumberOfRatings()+1);
@@ -648,27 +653,23 @@ public class Player extends User {
         {
             int index = GamesDB.getGameList().indexOf(game);
     
-            ArrayList<Rate> rateList = game.getRatings();
-            for(Rate rate : rateList)
-            {
-                if(rate.getPlayerName().equals(this.getUsername()))
-                {
-                    rateList.remove(rate);
-                    game.setRatings(rateList);
-                    game.setNumberOfRatings(game.getNumberOfRatings()-1);
+            LinkedList<Map<String, Integer>> rateList = game.getRatings();
 
-                    GamesDB.editGame(index, game);
-                    System.out.println("your rating was removed");
-                    found = true;
-                    status = "rating removed";
-                    break;
-                }
+            found = rateList.removeIf(map -> map.containsKey(this.getUsername()));
+            
+            if(found)
+            {
+                game.setRatings(rateList);
+                game.setNumberOfRatings(game.getNumberOfRatings()-1);
+                GamesDB.editGame(index, game);
+                System.out.println("your rating was removed");
+                status = "rating removed";
+
             }
-            if(!found)
+            else
             {
                 System.out.println("no rating was found");
                 status = "rating no found";
-
             }
         }
         else
@@ -734,9 +735,11 @@ public class Player extends User {
         if(game != null)
         {
             int index = GamesDB.getGameList().indexOf(game);
-    
-            Review rev = new Review(review, this.getUsername());
-            ArrayList<Review> reviewList = game.getReviews();
+            
+            Map<String, String> rev = new HashMap<>();
+            rev.put(this.getUsername(), review);
+
+            LinkedList<Map<String, String>> reviewList = game.getReviews();
             reviewList.add(rev);
             game.setReviews(reviewList);
             game.setNumberOfReviews(game.getNumberOfReviews()+1);
@@ -795,28 +798,25 @@ public class Player extends User {
         {
             int index = GamesDB.getGameList().indexOf(game);
     
-            ArrayList<Review> reviewsList = game.getReviews();
-            for(Review review : reviewsList)
-            {
-                if(review.getPlayerName().equals(this.getUsername()))
-                {
-                    reviewsList.remove(review);
-                    game.setReviews(reviewsList);
-                    game.setNumberOfReviews(game.getNumberOfReviews()-1);
-
-                    GamesDB.editGame(index, game);
-                    System.out.println("your review was removed");
-                    found = true;
-                    status = "review removed";
-                    break;
-                }
-            }
+            LinkedList<Map<String, String>> reviewsList = game.getReviews();
+            found = reviewsList.removeIf(map -> map.containsKey(this.getUsername()));
+            
             if(!found)
+            {
+                
+                game.setReviews(reviewsList);
+                game.setNumberOfReviews(game.getNumberOfReviews()-1);
+                GamesDB.editGame(index, game);
+                System.out.println("your review was removed");
+                found = true;
+                status = "review removed";
+            }
+            else
             {
                 System.out.println("no review was found");
                 status = "review no found";
-
             }
+           
         }
         else
         {

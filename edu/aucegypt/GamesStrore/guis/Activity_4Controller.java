@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -13,8 +15,6 @@ import javax.swing.JTextField;
 
 import edu.aucegypt.GamesStrore.Helpers.GUI;
 import edu.aucegypt.GamesStrore.games.Game;
-import edu.aucegypt.GamesStrore.games.Rate;
-import edu.aucegypt.GamesStrore.games.Review;
 import edu.aucegypt.GamesStrore.users.Administrator;
 import edu.aucegypt.GamesStrore.users.Player;
 
@@ -201,13 +201,17 @@ public class Activity_4Controller implements ActionListener
         }
         else
         {
-            ArrayList<Rate> ratings = game.getRatings();
+            LinkedList<Map<String, Integer>> ratings = game.getRatings();
             StringBuilder ratingsTable = new StringBuilder();
             ratingsTable.append("Ratings for ").append(game.getGameName()).append(":\n");
-            for (Rate rating : ratings) {
-                ratingsTable.append("Player: ").append(rating.getPlayerName()).append("\tRate: ").append(rating.getRate()).append("\n");
+            for (Map<String, Integer> rating : ratings) {
+                for (Map.Entry<String, Integer> entry : rating.entrySet()) {
+                    String playerName = entry.getKey();
+                    Integer rate = entry.getValue();
+                    ratingsTable.append("Player: ").append(playerName).append("\tRate: ").append(rate).append("\n");
+                }
             }
-
+            
             JOptionPane.showMessageDialog(null, ratingsTable.toString());
 
             return true;
@@ -225,11 +229,19 @@ public class Activity_4Controller implements ActionListener
         }
         else
         {
-            ArrayList<Review> reviews = game.getReviews();
+            LinkedList<Map<String, String>> reviews = game.getReviews();
             StringBuilder reviewsTable = new StringBuilder();
             reviewsTable.append("Reviews for ").append(game.getGameName()).append(":\n");
-            for (Review review : reviews) {
-                reviewsTable.append("Player: ").append(review.getPlayerName()).append("\tRate: ").append(review.getReview()).append("\n");
+            for (Map<String, String> review : reviews) {
+
+                    for (Map.Entry<String, String> entry : review.entrySet()) 
+                    {
+                    String playerName = entry.getKey();
+                    String rev = entry.getValue();
+                    reviewsTable.append("Player: ").append(playerName).append("\tReview: ").append(rev).append("\n");
+                }
+
+                //reviewsTable.append("Player: ").append(review.getPlayerName()).append("\tRate: ").append(review.getReview()).append("\n");
             }
 
             JOptionPane.showMessageDialog(null, reviewsTable.toString());

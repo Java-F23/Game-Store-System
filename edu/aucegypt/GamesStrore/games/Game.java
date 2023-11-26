@@ -2,6 +2,8 @@ package edu.aucegypt.GamesStrore.games;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * The `Game` class represents a video game in the game store system. It stores information about the game, such as its name,
@@ -11,9 +13,9 @@ public class Game {
     private String gameName;
     private String gameDescription;
     private int numberOfRatings;
-    private ArrayList<Rate> ratings;
+    private LinkedList<Map<String, Integer>> ratings;
     private int numberOfReviews;
-    private ArrayList<Review> reviews;
+    private LinkedList<Map<String, String>> reviews;
     private String releaseDate; // YY-MM-DD
     private String developer;
     private String publisher;
@@ -36,8 +38,8 @@ public class Game {
         this.numberOfDownloads = 0;
 
         
-        this.ratings = new ArrayList<>();
-        this.reviews = new ArrayList<>();
+        this.ratings = new LinkedList<>();
+        this.reviews = new LinkedList<>();
         this.genreTags = new ArrayList<>();
         this.releaseDate = new String(); 
         this.originalPrice = BigDecimal.ZERO; 
@@ -57,8 +59,8 @@ public class Game {
         this.numberOfReviews = 0;
         this.numberOfDownloads = 0;
 
-        this.ratings = new ArrayList<>();
-        this.reviews = new ArrayList<>();
+        this.ratings = new LinkedList<>();
+        this.reviews = new LinkedList<>();
         this.genreTags = new ArrayList<>();
         this.releaseDate = new String(); 
         this.originalPrice = BigDecimal.ZERO; 
@@ -69,8 +71,8 @@ public class Game {
 
 
 
-    public Game(String gameName, String gameDescription, int numberOfRatings, ArrayList<Rate> ratings,
-            int numberOfReviews, ArrayList<Review> reviews, String releaseDate, String developer, String publisher,
+    public Game(String gameName, String gameDescription, int numberOfRatings, LinkedList<Map<String, Integer>> ratings,
+            int numberOfReviews, LinkedList<Map<String, String>> reviews, String releaseDate, String developer, String publisher,
             ArrayList<String> genreTags,BigDecimal originalPrice, BigDecimal price, BigDecimal discount, int numberOfDownloads) {
         this.gameName = gameName;
         this.gameDescription = gameDescription;
@@ -113,11 +115,11 @@ public class Game {
         this.numberOfRatings = numberOfRatings;
     }
 
-    public ArrayList<Rate> getRatings() {
+    public LinkedList<Map<String, Integer>> getRatings() {
         return ratings;
     }
 
-    public void setRatings(ArrayList<Rate> ratings) {
+    public void setRatings(LinkedList<Map<String, Integer>> ratings) {
         this.ratings = ratings;
     }
 
@@ -129,11 +131,11 @@ public class Game {
         this.numberOfReviews = numberOfReviews;
     }
 
-    public ArrayList<Review> getReviews() {
+    public LinkedList<Map<String, String>> getReviews() {
         return reviews;
     }
 
-    public void setReviews(ArrayList<Review> reviews) {
+    public void setReviews(LinkedList<Map<String, String>> reviews) {
         this.reviews = reviews;
     }
 

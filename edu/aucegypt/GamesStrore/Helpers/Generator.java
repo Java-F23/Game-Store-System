@@ -27,7 +27,7 @@ public class Generator
         Player player10 = new Player("player42", "mysecurepassword", "player.42@mail.com");
 
 
-        ArrayList<Player> list = PlayersDB.getPlayerList();
+        LinkedList<Player> list = PlayersDB.getPlayerList();
         list.add(player1);
         list.add(player2);
         list.add(player3);
@@ -55,7 +55,7 @@ public class Generator
         Administrator admin10 = new Administrator("new_admin10", "new_password10", "new_admin10@example.com");
 
     
-        ArrayList<Administrator> list = AdministratorDB.getAdministratorList();
+        LinkedList<Administrator> list = AdministratorDB.getAdministratorList();
         list.add(admin1);
         list.add(admin2);
         list.add(admin3);
@@ -111,7 +111,7 @@ public class Generator
             "2022-10-07", "Valve", "Valve", new ArrayList<>(), new BigDecimal("14.99"),
             new BigDecimal("14.99"), new BigDecimal("0.00"), 0);
 
-        ArrayList<Game> list = GamesDB.getGameList();
+        LinkedList<Game> list = GamesDB.getGameList();
         list.add(game1);
         list.add(game2);
         list.add(game3);

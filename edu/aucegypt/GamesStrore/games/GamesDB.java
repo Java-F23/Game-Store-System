@@ -1,6 +1,7 @@
 package edu.aucegypt.GamesStrore.games;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * The `GamesDB` class represents a database of video games in the game store system. It provides methods to manage and
@@ -8,14 +9,14 @@ import java.util.ArrayList;
  */
 public class GamesDB 
 {
-    private static ArrayList<Game> gameList = new ArrayList<>();
+    private static LinkedList<Game> gameList = new LinkedList<>();
 
     /**
      * Get the list of games stored in the database.
      *
      * @return An ArrayList of Game objects.
      */
-    public static ArrayList<Game> getGameList() {
+    public static LinkedList<Game> getGameList() {
         return gameList;
     }
 
@@ -24,7 +25,7 @@ public class GamesDB
      *
      * @param gameList The new ArrayList of Game objects to replace the existing list.
      */
-    public static void setGameList(ArrayList<Game> gameList) 
+    public static void setGameList(LinkedList<Game> gameList) 
     {
         GamesDB.gameList = gameList;
     }
@@ -37,7 +38,7 @@ public class GamesDB
         displayGamesSummarized(GamesDB.gameList);
     }
 
-    public static ArrayList<Game> getGames()
+    public static LinkedList<Game> getGames()
     {
         return GamesDB.gameList;
     }
@@ -100,7 +101,7 @@ public class GamesDB
             return false;
         }
 
-        ArrayList<Game> filtered = filterGamesByGenres(genreTags);
+        LinkedList<Game> filtered = filterGamesByGenres(genreTags);
         displayGamesSummarized(filtered);
         return true;
     }
@@ -111,7 +112,7 @@ public class GamesDB
      * @param genreTags The list of genre tags to search for.
      * @return true if the search is successful, false if the provided genre tags are invalid.
      */
-    public static ArrayList<Game> tagsBasedSearchGUI(ArrayList<String> genreTags)
+    public static LinkedList<Game> tagsBasedSearchGUI(ArrayList<String> genreTags)
     {
         try
         {
@@ -131,7 +132,7 @@ public class GamesDB
             return null;
         }
 
-        ArrayList<Game> filtered = filterGamesByGenres(genreTags);
+        LinkedList<Game> filtered = filterGamesByGenres(genreTags);
 
         return filtered;
         
@@ -157,7 +158,7 @@ public class GamesDB
             System.out.println("Invalid year, please re-enter");
             return false;
         }
-        ArrayList<Game> filtered = filterGamesByYear(year);
+        LinkedList<Game> filtered = filterGamesByYear(year);
         displayGamesSummarized(filtered);
         return true;
     }
@@ -168,7 +169,7 @@ public class GamesDB
      * @param year The release year to search for.
      * @return true if the search is successful, false if the provided year is invalid.
      */
-    public static ArrayList<Game> yearBasedSearchGUI(int year)
+    public static LinkedList<Game> yearBasedSearchGUI(int year)
     {
         try
         {
@@ -182,7 +183,7 @@ public class GamesDB
             System.out.println("Invalid year, please re-enter");
             return null;
         }
-        ArrayList<Game> filtered = filterGamesByYear(year);
+        LinkedList<Game> filtered = filterGamesByYear(year);
         
         return filtered;
     }
@@ -207,7 +208,7 @@ public class GamesDB
             System.out.println("Invalid month, please re-enter");
             return false;
         }
-        ArrayList<Game> filtered = filterGamesByMonth(month);
+        LinkedList<Game> filtered = filterGamesByMonth(month);
         displayGamesSummarized(filtered);
         return true;
     }
@@ -218,7 +219,7 @@ public class GamesDB
      * @param month The release month to search for.
      * @return true if the search is successful, false if the provided month is invalid.
      */
-    public static ArrayList<Game> monthBasedSearchGUI(int month)
+    public static LinkedList<Game> monthBasedSearchGUI(int month)
     {
         try
         {
@@ -232,7 +233,7 @@ public class GamesDB
             System.out.println("Invalid month, please re-enter");
             return null;
         }
-        ArrayList<Game> filtered = filterGamesByMonth(month);
+        LinkedList<Game> filtered = filterGamesByMonth(month);
         return filtered;
     }
 
@@ -242,7 +243,7 @@ public class GamesDB
      * @param genreTags The genre tags to filter games by.
      * @return An ArrayList of Game objects that match the specified genre tags.
      */
-    public static ArrayList<Game> filterGamesByGenres(ArrayList<String> genreTags) 
+    public static LinkedList<Game> filterGamesByGenres(ArrayList<String> genreTags) 
     {
         try
         {
@@ -272,7 +273,7 @@ public class GamesDB
         }
 
 
-        ArrayList<Game> finalFilteredGames = new ArrayList<>();
+        LinkedList<Game> finalFilteredGames = new LinkedList<>();
         for (Game game : filteredGames) {
             if (!finalFilteredGames.contains(game)) {
                 finalFilteredGames.add(game);
@@ -288,7 +289,7 @@ public class GamesDB
      * @param year The release year to filter games by.
      * @return An ArrayList of Game objects that were released in the specified year.
      */
-    public static ArrayList<Game> filterGamesByYear(int year) 
+    public static LinkedList<Game> filterGamesByYear(int year) 
     {
         try
         {
@@ -303,7 +304,7 @@ public class GamesDB
             return null;
         }
 
-        ArrayList<Game> filteredGames = new ArrayList<>();
+        LinkedList<Game> filteredGames = new LinkedList<>();
         
 
         for (Game game : GamesDB.gameList) 
@@ -331,7 +332,7 @@ public class GamesDB
      * @param month The release month to filter games by.
      * @return An ArrayList of Game objects that were released in the specified month.
      */
-    public static ArrayList<Game> filterGamesByMonth(int month) 
+    public static LinkedList<Game> filterGamesByMonth(int month) 
     {
         try
         {
@@ -346,7 +347,7 @@ public class GamesDB
             return null;
         }
 
-        ArrayList<Game> filteredGames = new ArrayList<>();
+        LinkedList<Game> filteredGames = new LinkedList<>();
 
         for (Game game : GamesDB.gameList) 
         {
@@ -372,7 +373,7 @@ public class GamesDB
      * @param games The list of Game objects to display.
      * @return true if the display is successful, false if the provided game list is invalid.
      */
-    public static boolean displayGamesSummarized(ArrayList<Game> games)
+    public static boolean displayGamesSummarized(LinkedList<Game> games)
     {
         try
         {

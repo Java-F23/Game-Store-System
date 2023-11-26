@@ -1,6 +1,6 @@
 package edu.aucegypt.GamesStrore.users;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * The `AdministratorDB` class manages a database of administrators for the game store system.
@@ -8,14 +8,14 @@ import java.util.ArrayList;
  */
 public class AdministratorDB {
 
-    private static ArrayList<Administrator> administratorList = new ArrayList<>();
+    private static LinkedList<Administrator> administratorList = new LinkedList<>();
 
     /**
      * Retrieve the list of administrators in the database.
      *
      * @return An ArrayList of Administrator objects representing the administrators in the database.
      */
-    public static ArrayList<Administrator> getAdministratorList() {
+    public static LinkedList<Administrator> getAdministratorList() {
         return administratorList;
     }
 
@@ -24,7 +24,7 @@ public class AdministratorDB {
      *
      * @param administratorList An ArrayList of Administrator objects to set as the database content.
      */
-    public static void setAdministratorList(ArrayList<Administrator> administratorList) {
+    public static void setAdministratorList(LinkedList<Administrator> administratorList) {
         AdministratorDB.administratorList = administratorList;
     }
 

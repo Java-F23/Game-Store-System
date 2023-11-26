@@ -860,7 +860,7 @@ public class Player extends User {
 
     public ArrayList<String> getGames()
     {
-        ArrayList<Game> games = GamesDB.getGameList();
+        LinkedList<Game> games = GamesDB.getGameList();
         ArrayList<String> gameNames = new ArrayList<>();
 
         for (Game game : games) {
@@ -938,7 +938,7 @@ public class Player extends User {
      * @param genreTags The list of genre tags to search for.
      * @return true if the search was successful, false otherwise.
      */
-    public ArrayList<Game> tagsBasedSearchGUI(ArrayList<String> genreTags)
+    public LinkedList<Game> tagsBasedSearchGUI(ArrayList<String> genreTags)
     {
         try
         {
@@ -993,7 +993,7 @@ public class Player extends User {
      * @param year The release year to search for.
      * @return true if the search was successful, false otherwise.
      */
-    public ArrayList<Game> yearBasedSearchGUI(int year)
+    public LinkedList<Game> yearBasedSearchGUI(int year)
     {
         try
         {
@@ -1042,7 +1042,7 @@ public class Player extends User {
      * @param month The release month to search for (1 to 12).
      * @return true if the search was successful, false otherwise.
      */
-    public ArrayList<Game> monthBasedSearchGUI(int month)
+    public LinkedList<Game> monthBasedSearchGUI(int month)
     {
         try
         {

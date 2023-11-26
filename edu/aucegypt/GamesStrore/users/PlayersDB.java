@@ -1,6 +1,6 @@
 package edu.aucegypt.GamesStrore.users;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * The `PlayersDB` class is responsible for managing the player database and providing
@@ -8,14 +8,14 @@ import java.util.ArrayList;
  */
 public class PlayersDB {
 
-    private static ArrayList<Player> playerList = new ArrayList<>();
+    private static LinkedList<Player> playerList = new LinkedList<>();
 
     /**
      * Get the list of players in the database.
      *
      * @return An ArrayList containing all the registered players.
      */
-    public static ArrayList<Player> getPlayerList() {
+    public static LinkedList<Player> getPlayerList() {
         return playerList;
     }
 
@@ -24,7 +24,7 @@ public class PlayersDB {
      *
      * @param playerList The ArrayList of players to set as the database.
      */
-    public static void setPlayerList(ArrayList<Player> playerList) {
+    public static void setPlayerList(LinkedList<Player> playerList) {
         PlayersDB.playerList = playerList;
     }   
     

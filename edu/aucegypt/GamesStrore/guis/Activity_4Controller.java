@@ -253,8 +253,8 @@ public class Activity_4Controller implements ActionListener
     
     private static void generateStoreReprots(Administrator administrator)
     {
-        ArrayList<Game> games  = administrator.fetchGamesDB();
-        ArrayList<Player> players = administrator.fetchPlayersDB();
+        LinkedList<Game> games  = administrator.fetchGamesDB();
+        LinkedList<Player> players = administrator.fetchPlayersDB();
 
         // Create a JTextArea to display the reports
         JTextArea reportTextArea = new JTextArea();

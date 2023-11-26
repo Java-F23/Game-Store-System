@@ -3,6 +3,7 @@ package edu.aucegypt.GamesStrore.guis;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -40,7 +41,7 @@ public class Activity_5Controller_Search implements ActionListener
                     T.add(part);
                 }
                 
-                ArrayList<Game> tagSearch = player.tagsBasedSearchGUI(T);
+                LinkedList<Game> tagSearch = player.tagsBasedSearchGUI(T);
                 if(tagSearch != null)
                 {
                     listSearch(tagSearch);
@@ -53,7 +54,7 @@ public class Activity_5Controller_Search implements ActionListener
                         
                 case "Search games by release year":
                     input = JOptionPane.showInputDialog("Enter the target year");
-                    ArrayList<Game> yearSearch = player.yearBasedSearchGUI(Integer.parseInt(input));
+                    LinkedList<Game> yearSearch = player.yearBasedSearchGUI(Integer.parseInt(input));
                     if(yearSearch != null)
                     {
                         listSearch(yearSearch);
@@ -65,7 +66,7 @@ public class Activity_5Controller_Search implements ActionListener
                     break;
                 case "Search games by release month":
                     input = JOptionPane.showInputDialog("Enter the target month");
-                    ArrayList<Game> monthSearch = player.monthBasedSearchGUI(Integer.parseInt(input));
+                    LinkedList<Game> monthSearch = player.monthBasedSearchGUI(Integer.parseInt(input));
                     if(monthSearch != null)
                     {
                         listSearch(monthSearch);
@@ -96,7 +97,7 @@ public class Activity_5Controller_Search implements ActionListener
         }
     }
 
-    private static void listSearch(ArrayList<Game> games)
+    private static void listSearch(LinkedList<Game> games)
     {
         // Create a JTextArea to display the reports
         JTextArea displayTextArea = new JTextArea();

@@ -155,8 +155,8 @@ public class Administrator extends User
      */
     public boolean generateReports() 
     {
-        ArrayList<Game> games = GamesDB.getGameList();
-        ArrayList<Player> players = PlayersDB.getPlayerList();
+        LinkedList<Game> games = GamesDB.getGameList();
+        LinkedList<Player> players = PlayersDB.getPlayerList();
 
         
         System.out.println("Game Sales Report:");
@@ -346,12 +346,12 @@ public class Administrator extends User
         
     }
 
-    public ArrayList<Game> fetchGamesDB()
+    public LinkedList<Game> fetchGamesDB()
     {
         return GamesDB.getGameList();
     }
 
-    public ArrayList<Player> fetchPlayersDB()
+    public LinkedList<Player> fetchPlayersDB()
     {
         return PlayersDB.getPlayerList();
     }

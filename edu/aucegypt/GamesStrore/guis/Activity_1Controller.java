@@ -1,17 +1,26 @@
+/**
+ * The `Activity_1Controller` class serves as the controller for the actions performed in Activity_1.
+ * It implements the ActionListener interface to handle button clicks and other events.
+ */
 package edu.aucegypt.GamesStrore.guis;
-
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Activity_1Controller implements ActionListener 
-{
+public class Activity_1Controller implements ActionListener {
 
-    public static void WelcomeMsg() 
-    {
+    /**
+     * Invokes the WelcomeMsg method in the Activity_1 class.
+     */
+    public static void WelcomeMsg() {
         Activity_1.WelcomeMsg();
     }
 
+    /**
+     * Handles button clicks and other events triggered in Activity_1.
+     *
+     * @param e The ActionEvent representing the action performed.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
@@ -31,14 +40,12 @@ public class Activity_1Controller implements ActionListener
                 System.exit(0);
                 break;
             case "Timer":
-                Activity_1.welcomeFrame.dispose(); // Close the welcome frame
-                Activity_1.openMainFrame(); // Open the main frame with buttons
+                Activity_1.welcomeFrame.dispose();
+                Activity_1.openMainFrame();
                 break;
             default:
-                System.out.println("Unknown action command: ");
+                System.out.println("Unknown action command: " + command);
                 break;
         }
     }
 }
-
-

@@ -1,23 +1,28 @@
+/**
+ * The `Activity_1` class represents the welcome activity and the first window of the project.
+ * It includes methods for displaying a welcome message and generating the main frame with buttons.
+ */
 package edu.aucegypt.GamesStrore.guis;
 
 import javax.swing.*;
-
-import edu.aucegypt.GamesStrore.resources.Strings;
-
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 
-//Welcome Activity
-// A class that serves as the first window of the project, the welcome and entrance
-public class Activity_1 
-{
+import edu.aucegypt.GamesStrore.resources.Strings;
+
+public class Activity_1 {
+
+    // The frame for the welcome message
     protected static JFrame welcomeFrame;
+
+    // The frame for the main activity
     protected static JFrame mainFrame;
 
-    // a method that creating a welcome measge for the user
-    protected static void WelcomeMsg() 
-    {
+    /**
+     * Displays a welcome message using a JFrame.
+     */
+    protected static void WelcomeMsg() {
         // Create a JFrame for the welcome message
         welcomeFrame = new JFrame(Strings.storeName);
         welcomeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,66 +45,67 @@ public class Activity_1
         timer.start();
     }
 
-    // a method that generates the first frame 
-    protected static void openMainFrame() 
-    {
+    /**
+     * Generates the main frame with buttons for login, signup, and quitting the application.
+     */
+    protected static void openMainFrame() {
         // Create a new JFrame for the main frame
         mainFrame = new JFrame(Strings.welcomeLabel + "!");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLayout(new BoxLayout(mainFrame.getContentPane(), BoxLayout.Y_AXIS));
-    
+
         // Create buttons with unique ActionCommands
         JButton loginButton = new JButton(Strings.loginButton);
         loginButton.setActionCommand("Button1");
-    
+
         JButton signupButton = new JButton(Strings.signupButton);
         signupButton.setActionCommand("Button2");
-    
-        JButton QuitButton = new JButton(Strings.quitButton);
-        QuitButton.setActionCommand("Button3");
-    
+
+        JButton quitButton = new JButton(Strings.quitButton);
+        quitButton.setActionCommand("Button3");
+
         // Create a single ActionListener
         ActionListener buttonHandler = new Activity_1Controller();
-    
+
         // Add the ActionListener to all buttons
         loginButton.addActionListener(buttonHandler);
         signupButton.addActionListener(buttonHandler);
-        QuitButton.addActionListener(buttonHandler);
-    
+        quitButton.addActionListener(buttonHandler);
+
         // Create a panel to hold the buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-    
+
         // Add vertical spacing
         buttonPanel.add(Box.createVerticalStrut(20));
-    
+
         // Add login button
         buttonPanel.add(loginButton);
-        
+
         // Add vertical spacing
         buttonPanel.add(Box.createVerticalStrut(10));
-    
+
         // Add signup button
         buttonPanel.add(signupButton);
-    
+
         // Add vertical spacing
         buttonPanel.add(Box.createVerticalStrut(10));
-    
+
         // Add Quit button
-        buttonPanel.add(QuitButton);
-    
+        buttonPanel.add(quitButton);
+
         // Add vertical spacing
         buttonPanel.add(Box.createVerticalStrut(20));
-    
+
         // Create a panel to hold the button panel and center it vertically
         JPanel centerPanel = new JPanel(new GridBagLayout());
         centerPanel.add(buttonPanel);
-    
+
         // Add the center panel to the main frame
         mainFrame.add(centerPanel, BorderLayout.CENTER);
-    
+
         mainFrame.pack();
-    
+
         // Set the size, make the main frame non-resizable, and center it on the screen
         mainFrame.setSize(350, 200);
         mainFrame.setResizable(false);
@@ -107,6 +113,3 @@ public class Activity_1
         mainFrame.setVisible(true);
     }
 }
-
-
-

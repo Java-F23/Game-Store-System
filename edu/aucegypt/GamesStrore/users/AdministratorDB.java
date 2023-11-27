@@ -65,13 +65,7 @@ public class AdministratorDB {
             return foundAdministrator;
         }
 
-        // for(Administrator administrator : AdministratorDB.administratorList)
-        // {
-        //     if(administrator.getUsername().equals(adminstratorName))
-        //     {
-        //         return administrator;
-        //     }
-        // }
+        
         return null;
     }
     

@@ -11,6 +11,7 @@ import edu.aucegypt.GamesStrore.users.AdministratorDB;
 import edu.aucegypt.GamesStrore.users.Player;
 import edu.aucegypt.GamesStrore.users.PlayersDB;
 
+//Generator class to generate dummy data
 public class Generator 
 {
     public static void playerGenerator()

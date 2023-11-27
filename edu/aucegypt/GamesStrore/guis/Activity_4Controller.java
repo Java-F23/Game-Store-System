@@ -1,3 +1,7 @@
+/**
+ * The `Activity_4Controller` class serves as the controller for Admin-related actions.
+ * It implements the ActionListener interface to handle events triggered by user actions.
+ */
 package edu.aucegypt.GamesStrore.guis;
 
 import java.awt.event.ActionEvent;
@@ -18,94 +22,71 @@ import edu.aucegypt.GamesStrore.games.Game;
 import edu.aucegypt.GamesStrore.users.Administrator;
 import edu.aucegypt.GamesStrore.users.Player;
 
+public class Activity_4Controller implements ActionListener {
 
-public class Activity_4Controller implements ActionListener 
-{
     private static Administrator administrator;
     String gameTitle = new String();
 
-    public static void openAdminWindow(Administrator admin)
-    {
+    /**
+     * Opens the Admin window.
+     * 
+     * @param admin The Administrator object associated with the Admin window.
+     */
+    public static void openAdminWindow(Administrator admin) {
         administrator = admin;
         Activity_4.openAdminWindow(admin);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) 
-    {
+    public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        //String gameTitle = new String();
         Game game;
         switch (command) {
             case "addGameMenuItem":
-
                 System.out.println("Button 1 was clicked.");
                 gameTitle = JOptionPane.showInputDialog("Enter the title of the game to add:");
                 game = new Game(gameTitle);
 
-                if(!administrator.addGame(game))
-                {
-                    JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
+                if (!administrator.addGame(game)) {
+                    JOptionPane.showMessageDialog(null, "Error occurred", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                
                 break;
 
             case "removeGameMenuItem":
-
                 gameTitle = JOptionPane.showInputDialog("Enter the title of the game to remove:");
-                
 
-                if(!administrator.removeGame(gameTitle))
-                {
-                    JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
+                if (!administrator.removeGame(gameTitle)) {
+                    JOptionPane.showMessageDialog(null, "Error occurred", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                
-                
                 break;
 
             case "applyDiscountMenuItem":
-
                 gameTitle = JOptionPane.showInputDialog("Enter the title of the game to apply a discount:");
-                if(!administrator.applyDiscount(gameTitle))
-                {
-                    JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-
+                if (!administrator.applyDiscount(gameTitle)) {
+                    JOptionPane.showMessageDialog(null, "Error occurred", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                
-
                 break;
 
             case "editGameDetailsMenuItem":
-
                 gameTitle = JOptionPane.showInputDialog("Enter the title of the game to edit:");
-
                 game = administrator.fetchGameByTitle(gameTitle);
-                if(game == null)
-                {
-                    JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
+                if (game == null) {
+                    JOptionPane.showMessageDialog(null, "Error occurred", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Activity_4.editGame(administrator, gameTitle);
                 }
-                else
-                {
-                    Activity_4.editGame(administrator,gameTitle);
-                }
-                
                 break;
 
             case "confirmButton":
-                boolean status = confirmeEdit(administrator, gameTitle, Activity_4.gameNameField,
-                                              Activity_4.descriptionField, Activity_4.releaseDateField,
-                                               Activity_4.developerField, Activity_4.publisherField,
-                                                Activity_4.originalPriceField, Activity_4.priceField,
-                                                 Activity_4.discountField, Activity_4.genreTagsField);
-                if(!status)
-                {
-                    JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(null, gameTitle + " has been updated", "Update", JOptionPane.INFORMATION_MESSAGE);
+                boolean status = confirmEdit(administrator, gameTitle, Activity_4.gameNameField,
+                        Activity_4.descriptionField, Activity_4.releaseDateField, Activity_4.developerField,
+                        Activity_4.publisherField, Activity_4.originalPriceField, Activity_4.priceField,
+                        Activity_4.discountField, Activity_4.genreTagsField);
+                if (!status) {
+                    JOptionPane.showMessageDialog(null, "Error occurred", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, gameTitle + " has been updated", "Update",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
                 Activity_4.editDetailsFrame.dispose();
                 break;
@@ -113,95 +94,72 @@ public class Activity_4Controller implements ActionListener
             case "logout":
                 Activity_4.adminFrame.dispose();
                 Activity_3.openLogInFrame();
-
                 break;
 
             case "gameRates":
-
-                if(!displayGameRatings(administrator))
-                {
-                    JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
+                if (!displayGameRatings(administrator)) {
+                    JOptionPane.showMessageDialog(null, "Error occurred", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
                 break;
 
             case "gameReviews":
-
-                if(!displayGameReviews(administrator))
-                {
-                    JOptionPane.showMessageDialog(null, "Error occured", "Error", JOptionPane.ERROR_MESSAGE);
+                if (!displayGameReviews(administrator)) {
+                    JOptionPane.showMessageDialog(null, "Error occurred", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
                 break;
 
             case "generateReports":
-
-                generateStoreReprots(administrator);
+                generateStoreReports(administrator);
                 break;
             default:
-
                 System.out.println("Unknown action command: ");
                 break;
         }
     }
 
-    private static boolean confirmeEdit(Administrator administrator, String gameTitle, JTextField gameNameField,JTextField descriptionField,JTextField releaseDateField,
-                                        JTextField developerField,JTextField publisherField,
-                                        JTextField originalPriceField,JTextField priceField,
-                                        JTextField discountField,JTextField genreTagsField) 
-    {
-        String[] edits = GUI.extractNewGameDetails(gameNameField, descriptionField, releaseDateField, developerField, publisherField, originalPriceField, priceField, discountField, genreTagsField);
+    private static boolean confirmEdit(Administrator administrator, String gameTitle, JTextField gameNameField,
+            JTextField descriptionField, JTextField releaseDateField, JTextField developerField,
+            JTextField publisherField, JTextField originalPriceField, JTextField priceField,
+            JTextField discountField, JTextField genreTagsField) {
+        String[] edits = GUI.extractNewGameDetails(gameNameField, descriptionField, releaseDateField, developerField,
+                publisherField, originalPriceField, priceField, discountField, genreTagsField);
 
         ArrayList<String> tags = null;
 
-        if(edits[8] != null)
-        {
-            String commaSeparatedString = edits[8]; 
-
+        if (edits[8] != null) {
+            String commaSeparatedString = edits[8];
             String[] parts = commaSeparatedString.split(",");
-
             tags = new ArrayList<>();
-
             for (String part : parts) {
                 tags.add(part);
             }
         }
 
         BigDecimal newOriginalPrice = null;
-        if(edits[5] != null)
-        {
+        if (edits[5] != null) {
             newOriginalPrice = new BigDecimal(edits[5]);
         }
-        
+
         BigDecimal newPrice = null;
-        if(edits[6] != null)
-        {
+        if (edits[6] != null) {
             newPrice = new BigDecimal(edits[6]);
         }
 
         BigDecimal newDiscount = null;
-        if(edits[7] != null)
-        {
+        if (edits[7] != null) {
             newDiscount = new BigDecimal(edits[7]);
         }
 
-
-        return administrator.editGame(gameTitle, edits[0], edits[1], edits[2], edits[3], edits[4], newOriginalPrice, newPrice, newDiscount, -1, tags);
-
-    
+        return administrator.editGame(gameTitle, edits[0], edits[1], edits[2], edits[3], edits[4], newOriginalPrice,
+                newPrice, newDiscount, -1, tags);
     }
 
-
-    private static boolean displayGameRatings(Administrator administrator)
-    {
+    private static boolean displayGameRatings(Administrator administrator) {
         String gameTitle = JOptionPane.showInputDialog("Enter the title of the game to view its ratings:");
         Game game = administrator.fetchGameByTitle(gameTitle);
-        if(game == null)
-        {
+        if (game == null) {
             return false;
-        }
-        else
-        {
+        } else {
             LinkedList<Map<String, Integer>> ratings = game.getRatings();
             StringBuilder ratingsTable = new StringBuilder();
             ratingsTable.append("Ratings for ").append(game.getGameName()).append(":\n");
@@ -212,49 +170,34 @@ public class Activity_4Controller implements ActionListener
                     ratingsTable.append("Player: ").append(playerName).append("\tRate: ").append(rate).append("\n");
                 }
             }
-            
             JOptionPane.showMessageDialog(null, ratingsTable.toString());
-
             return true;
         }
-        
     }
 
-    private static boolean displayGameReviews(Administrator administrator)
-    {
+    private static boolean displayGameReviews(Administrator administrator) {
         String gameTitle = JOptionPane.showInputDialog("Enter the title of the game to view its reviews:");
         Game game = administrator.fetchGameByTitle(gameTitle);
-        if(game == null)
-        {
+        if (game == null) {
             return false;
-        }
-        else
-        {
+        } else {
             LinkedList<Map<String, String>> reviews = game.getReviews();
             StringBuilder reviewsTable = new StringBuilder();
             reviewsTable.append("Reviews for ").append(game.getGameName()).append(":\n");
             for (Map<String, String> review : reviews) {
-
-                    for (Map.Entry<String, String> entry : review.entrySet()) 
-                    {
+                for (Map.Entry<String, String> entry : review.entrySet()) {
                     String playerName = entry.getKey();
                     String rev = entry.getValue();
                     reviewsTable.append("Player: ").append(playerName).append("\tReview: ").append(rev).append("\n");
                 }
-
-                //reviewsTable.append("Player: ").append(review.getPlayerName()).append("\tRate: ").append(review.getReview()).append("\n");
             }
-
             JOptionPane.showMessageDialog(null, reviewsTable.toString());
-
             return true;
         }
-        
     }
-    
-    private static void generateStoreReprots(Administrator administrator)
-    {
-        LinkedList<Game> games  = administrator.fetchGamesDB();
+
+    private static void generateStoreReports(Administrator administrator) {
+        LinkedList<Game> games = administrator.fetchGamesDB();
         LinkedList<Player> players = administrator.fetchPlayersDB();
 
         // Create a JTextArea to display the reports
@@ -274,10 +217,9 @@ public class Activity_4Controller implements ActionListener
         // Add the game sales report to the JTextArea
         reportTextArea.append("Game Sales Report:\n");
         for (Game game : games) {
-            reportTextArea.append(game.getGameName() +
-                " - Downloads: " + game.getNumberOfDownloads() +
-                " - Number of ratings: " + game.getNumberOfRatings() +
-                " - Number of reviews: " + game.getNumberOfReviews() + "\n");
+            reportTextArea.append(game.getGameName() + " - Downloads: " + game.getNumberOfDownloads()
+                    + " - Number of ratings: " + game.getNumberOfRatings() + " - Number of reviews: "
+                    + game.getNumberOfReviews() + "\n");
         }
 
         // Add a separator between the two reports
@@ -286,16 +228,12 @@ public class Activity_4Controller implements ActionListener
         // Add the player statistics report to the JTextArea
         reportTextArea.append("Player Statistics Report:\n");
         for (Player player : players) {
-            reportTextArea.append(player.getUsername() +
-                " Own " + player.getPurchasedGames().size() + " games " +
-                " - Wallet Balance: " + player.getWallet() + "\n");
+            reportTextArea.append(player.getUsername() + " Own " + player.getPurchasedGames().size() + " games "
+                    + " - Wallet Balance: " + player.getWallet() + "\n");
         }
 
         // Set the size and make the frame visible
         reportFrame.setSize(400, 400);
         reportFrame.setVisible(true);
-
-
     }
-
 }

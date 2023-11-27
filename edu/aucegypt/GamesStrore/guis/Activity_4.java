@@ -1,3 +1,7 @@
+/**
+ * The `Activity_4` class represents the Admin window of the application, handling Admin tasks.
+ * It includes methods to open the Admin window, create radio buttons for reports, and edit game details.
+ */
 package edu.aucegypt.GamesStrore.guis;
 
 import java.awt.GridLayout;
@@ -18,29 +22,28 @@ import javax.swing.JTextField;
 
 import edu.aucegypt.GamesStrore.users.Administrator;
 
-//Admin window
-// A class that handel the Admin tasks
-public class Activity_4 
-{
+public class Activity_4 {
+
     private static ActionListener adminHandler;
     protected static JFrame adminFrame;
     protected static JFrame editDetailsFrame;
 
+    protected static JTextField gameNameField;
+    protected static JTextField descriptionField;
+    protected static JTextField releaseDateField;
+    protected static JTextField developerField;
+    protected static JTextField publisherField;
+    protected static JTextField originalPriceField;
+    protected static JTextField priceField;
+    protected static JTextField discountField;
+    protected static JTextField genreTagsField;
 
-
-    protected static    JTextField gameNameField;
-    protected static    JTextField descriptionField;
-    protected static    JTextField releaseDateField;
-    protected static    JTextField developerField;
-    protected static    JTextField publisherField;
-    protected static    JTextField originalPriceField;
-    protected static    JTextField priceField;
-    protected static    JTextField discountField;
-    protected static    JTextField genreTagsField;
-
-    // A method that displayes the admin window
-    public static void openAdminWindow(Administrator administrator) 
-    {
+    /**
+     * Opens the Admin window.
+     * 
+     * @param administrator The Administrator object associated with the Admin window.
+     */
+    public static void openAdminWindow(Administrator administrator) {
         adminHandler = new Activity_4Controller();
 
         adminFrame = new JFrame("Admin Window");
@@ -72,7 +75,6 @@ public class Activity_4
         JMenuItem logout = new JMenuItem("Logout");
         logout.setActionCommand("logout");
         logout.addActionListener(adminHandler);
-        
 
         editGamesMenu.add(addGameMenuItem);
         editGamesMenu.add(removeGameMenuItem);
@@ -91,7 +93,12 @@ public class Activity_4
         adminFrame.setVisible(true);
     }
 
-    // A set of methods that handel some components in the frame
+    /**
+     * Creates a panel with radio buttons for different reports.
+     * 
+     * @param administrator The Administrator object associated with the Admin window.
+     * @return A JPanel containing radio buttons for reports.
+     */
     private static JPanel createRadioButtons(Administrator administrator) {
         JPanel radioPanel = new JPanel();
         radioPanel.setLayout(new BoxLayout(radioPanel, BoxLayout.Y_AXIS));
@@ -120,8 +127,14 @@ public class Activity_4
 
         return radioPanel;
     }
-    protected static void editGame(Administrator administrator, String gameTitle)
-    {
+
+    /**
+     * Opens a frame to edit game details.
+     * 
+     * @param administrator The Administrator object associated with the Admin window.
+     * @param gameTitle      The title of the game to be edited.
+     */
+    protected static void editGame(Administrator administrator, String gameTitle) {
         editDetailsFrame = new JFrame("Edit Game Details");
         editDetailsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         editDetailsFrame.setSize(400, 300);
@@ -158,8 +171,6 @@ public class Activity_4
         JButton confirmButton = new JButton("Confirm Edit");
         JButton cancelButton = new JButton("Cancel Edit");
 
-        
-
         editDetailsFrame.add(gameNameLabel);
         editDetailsFrame.add(gameNameField);
         editDetailsFrame.add(descriptionLabel);
@@ -181,7 +192,6 @@ public class Activity_4
         editDetailsFrame.add(confirmButton);
         editDetailsFrame.add(cancelButton);
 
-
         confirmButton.setActionCommand("confirmButton");
         confirmButton.addActionListener(adminHandler);
 
@@ -195,6 +205,5 @@ public class Activity_4
 
         editDetailsFrame.setLocationRelativeTo(null);
         editDetailsFrame.setVisible(true);
-
-    } 
+    }
 }

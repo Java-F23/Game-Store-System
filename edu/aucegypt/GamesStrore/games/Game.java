@@ -10,15 +10,15 @@ import java.util.Map;
  * description, ratings, reviews, release date, developer, publisher, genre tags, pricing, and download statistics.
  */
 public class Game {
-    private String gameName;
-    private String gameDescription;
+    private StringBuilder gameName = new StringBuilder();
+    private StringBuilder gameDescription = new StringBuilder();
     private int numberOfRatings;
     private LinkedList<Map<String, Integer>> ratings;
     private int numberOfReviews;
     private LinkedList<Map<String, String>> reviews;
-    private String releaseDate; // YY-MM-DD
-    private String developer;
-    private String publisher;
+    private StringBuilder releaseDate = new StringBuilder(); // YY-MM-DD
+    private StringBuilder developer = new StringBuilder();
+    private StringBuilder publisher = new StringBuilder();
     private ArrayList<String> genreTags;
     private BigDecimal originalPrice;
     private BigDecimal price;
@@ -28,33 +28,30 @@ public class Game {
     // Constructors
     public Game() 
     {
-        this.gameName = new String();
-        this.gameDescription =  new String();
-        this.developer = new String();
-        this.publisher = new String();
+        this.gameName = new StringBuilder();
+        this.gameDescription = new StringBuilder();
+        this.developer = new StringBuilder();
+        this.publisher = new StringBuilder();
         
         this.numberOfRatings = 0;
         this.numberOfReviews = 0;
         this.numberOfDownloads = 0;
 
-        
         this.ratings = new LinkedList<>();
         this.reviews = new LinkedList<>();
         this.genreTags = new ArrayList<>();
-        this.releaseDate = new String(); 
+        this.releaseDate = new StringBuilder(); 
         this.originalPrice = BigDecimal.ZERO; 
         this.price = BigDecimal.ZERO;
         this.discount = BigDecimal.ZERO;
     }
-
-    
 
     public Game(String gameName) 
     {
-        this.gameName = gameName;
-        this.gameDescription =  new String();
-        this.developer = new String();
-        this.publisher = new String();
+        this.gameName.append(gameName);
+        this.gameDescription = new StringBuilder();
+        this.developer = new StringBuilder();
+        this.publisher = new StringBuilder();
         this.numberOfRatings = 0;
         this.numberOfReviews = 0;
         this.numberOfDownloads = 0;
@@ -62,27 +59,24 @@ public class Game {
         this.ratings = new LinkedList<>();
         this.reviews = new LinkedList<>();
         this.genreTags = new ArrayList<>();
-        this.releaseDate = new String(); 
+        this.releaseDate = new StringBuilder(); 
         this.originalPrice = BigDecimal.ZERO; 
         this.price = BigDecimal.ZERO;
         this.discount = BigDecimal.ZERO;
-
     }
-
-
 
     public Game(String gameName, String gameDescription, int numberOfRatings, LinkedList<Map<String, Integer>> ratings,
             int numberOfReviews, LinkedList<Map<String, String>> reviews, String releaseDate, String developer, String publisher,
-            ArrayList<String> genreTags,BigDecimal originalPrice, BigDecimal price, BigDecimal discount, int numberOfDownloads) {
-        this.gameName = gameName;
-        this.gameDescription = gameDescription;
+            ArrayList<String> genreTags, BigDecimal originalPrice, BigDecimal price, BigDecimal discount, int numberOfDownloads) {
+        this.gameName.append(gameName);
+        this.gameDescription.append(gameDescription);
         this.numberOfRatings = numberOfRatings;
         this.ratings = ratings;
         this.numberOfReviews = numberOfReviews;
         this.reviews = reviews;
-        this.releaseDate = releaseDate;
-        this.developer = developer;
-        this.publisher = publisher;
+        this.releaseDate.append(releaseDate);
+        this.developer.append(developer);
+        this.publisher.append(publisher);
         this.genreTags = genreTags;
         this.originalPrice = originalPrice;
         this.price = price;
@@ -92,19 +86,21 @@ public class Game {
 
     // setters and getters
     public String getGameName() {
-        return gameName;
+        return gameName.toString();
     }
 
     public void setGameName(String gameName) {
-        this.gameName = gameName;
+        this.gameName.delete(0, this.gameName.length());
+        this.gameName.append(gameName);
     }
 
     public String getGameDescription() {
-        return gameDescription;
+        return gameDescription.toString();
     }
 
     public void setGameDescription(String gameDescription) {
-        this.gameDescription = gameDescription;
+        this.gameDescription.delete(0, this.gameDescription.length());
+        this.gameDescription.append(gameDescription);
     }
 
     public int getNumberOfRatings() {
@@ -140,27 +136,30 @@ public class Game {
     }
 
     public String getReleaseDate() {
-        return releaseDate;
+        return releaseDate.toString();
     }
 
     public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+        this.releaseDate.delete(0, this.releaseDate.length());
+        this.releaseDate.append(releaseDate);
     }
 
     public String getDeveloper() {
-        return developer;
+        return developer.toString();
     }
 
     public void setDeveloper(String developer) {
-        this.developer = developer;
+        this.developer.delete(0, this.developer.length());
+        this.developer.append(developer);
     }
 
     public String getPublisher() {
-        return publisher;
+        return publisher.toString();
     }
 
     public void setPublisher(String publisher) {
-        this.publisher = publisher;
+        this.publisher.delete(0, this.publisher.length());
+        this.publisher.append(publisher);
     }
 
     public ArrayList<String> getGenreTags() {
@@ -177,7 +176,7 @@ public class Game {
 
     public void setOriginalPrice(BigDecimal originalPrice) {
         this.originalPrice = originalPrice;
-    }  
+    }
 
     public BigDecimal getPrice() {
         return price;
@@ -203,29 +202,22 @@ public class Game {
         this.numberOfDownloads = numberOfDownloads;
     }
 
-    
     /**
      * Add a genre tag to the game's list of genre tags.
      *
      * @param genreTag The genre tag to be added.
      * @return true if the genre tag is added successfully, false if the provided genre tag is invalid.
      */
-    public boolean addGenreTag(String genreTag) 
-    {
-        try
-        {
-            if(genreTag == null)
-            {
-                throw new IllegalArgumentException("Null refrence game tag");
+    public boolean addGenreTag(String genreTag) {
+        try {
+            if (genreTag == null) {
+                throw new IllegalArgumentException("Null reference for game tag");
             }
 
-            if(genreTag.isEmpty())
-            {
-                throw new IllegalArgumentException("No game tag");
+            if (genreTag.isEmpty()) {
+                throw new IllegalArgumentException("Empty game tag");
             }
-        }
-        catch (IllegalArgumentException e) 
-        {
+        } catch (IllegalArgumentException e) {
             System.out.println("Invalid genreTag, please re-enter");
             return false;
         }
@@ -240,22 +232,16 @@ public class Game {
      * @param genreTag The genre tag to be removed.
      * @return true if the genre tag is removed successfully, false if the provided genre tag is invalid.
      */
-    public boolean removeGenreTag(String genreTag) 
-    {
-        try
-        {
-            if(genreTag == null)
-            {
-                throw new IllegalArgumentException("Null refrence game tag");
+    public boolean removeGenreTag(String genreTag) {
+        try {
+            if (genreTag == null) {
+                throw new IllegalArgumentException("Null reference for game tag");
             }
 
-            if(genreTag.isEmpty())
-            {
-                throw new IllegalArgumentException("No game tag");
+            if (genreTag.isEmpty()) {
+                throw new IllegalArgumentException("Empty game tag");
             }
-        }
-        catch (IllegalArgumentException e) 
-        {
+        } catch (IllegalArgumentException e) {
             System.out.println("Invalid genreTag, please re-enter");
             return false;
         }
@@ -266,8 +252,7 @@ public class Game {
     /**
      * Apply a discount to the game's price by subtracting the discount amount from the original price.
      */
-    public void applyDiscount()
-    {
+    public void applyDiscount() {
         BigDecimal newPrice = this.originalPrice.subtract(this.discount);
         this.setPrice(newPrice);
     }
@@ -275,12 +260,9 @@ public class Game {
     /**
      * Remove the discount from the game's price, resetting it to the original price.
      */
-    public void removeDiscount()
-    {
+    public void removeDiscount() {
         this.setPrice(this.originalPrice);
     }
-
-
 
     /**
      * Generate a string representation of the `Game` object.
@@ -295,11 +277,4 @@ public class Game {
                 + ", genreTags=" + genreTags + ", originalPrice=" + originalPrice + ", price=" + price + ", discount="
                 + discount + ", numberOfDownloads=" + numberOfDownloads + "]";
     }
-
-
-    
-
-
-
-      
 }

@@ -1,3 +1,7 @@
+/**
+ * The `Activity_5` class represents the Player window and handles various player tasks.
+ * It includes methods for displaying the player window, creating menu items, and managing different actions.
+ */
 package edu.aucegypt.GamesStrore.guis;
 
 import javax.swing.*;
@@ -9,17 +13,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-//Player window
-//A class to handel the player tasks
- class Activity_5 
- {
+/**
+ * Player window class for handling player tasks.
+ */
+class Activity_5 {
     private static JPanel contentPanel;
     private static GridBagConstraints gbc;
-    private static int recomendationsNextGridYStop;
+    private static int recommendationsNextGridYStop;
 
-    // a method that displays the player window
-    public static void openPlayerWindow(Player player) 
-    {
+    /**
+     * Opens the Player window.
+     *
+     * @param player The Player object associated with the Player window.
+     */
+    public static void openPlayerWindow(Player player) {
         // Create the main frame
         JFrame playerFrame = new JFrame("Player Window");
         playerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,7 +48,7 @@ import java.util.ArrayList;
                 Activity_3.openLogInFrame();
             }
         });
-        
+
         menuBar.add(logout);
 
         // Set the menu bar for the frame
@@ -65,17 +72,14 @@ import java.util.ArrayList;
         contentPanel.add(recommendationsLabel, gbc);
         gbc.gridy++;
 
-        // Add  recommendations
-        
-        recomendationsNextGridYStop = gbc.gridy;
-
+        // Add recommendations
+        recommendationsNextGridYStop = gbc.gridy;
         listContent(player.getRecommendations(), true);
         for (int i = 1; i <= 6; i++) {
             JLabel recommendation = new JLabel("Recommendation Example " + i);
             contentPanel.add(recommendation, gbc);
             gbc.gridy++;
         }
-        
 
         // Create the Browse Games section
         gbc.gridx = 0;
@@ -86,7 +90,7 @@ import java.util.ArrayList;
         gbc.gridy++;
 
         // Add games
-        listContent(player.getGames(),false);
+        listContent(player.getGames(), false);
         for (int i = 1; i <= 10; i++) {
             JLabel game = new JLabel("Store Game Example " + i);
             contentPanel.add(game, gbc);
@@ -109,61 +113,53 @@ import java.util.ArrayList;
         playerFrame.setVisible(true);
     }
 
-    // a method that creates the different menu items
+    /**
+     * Creates menu items based on the specified menu name and associated player.
+     *
+     * @param menuName The name of the menu.
+     * @param player   The associated Player object.
+     * @return The created JMenu.
+     */
     private static JMenu createMenu(String menuName, Player player) {
         JMenu menu = new JMenu(menuName);
 
-        if (menuName.equals("Games")) 
-        {
+        if (menuName.equals("Games")) {
             String[] gameItems = {"Play Game", "Purchase Game", "Refund Game", "View Purchased Games"};
-            ArrayList<JMenuItem> items = GamesHandler(gameItems,player);
-            for(JMenuItem item : items)
-            {
+            ArrayList<JMenuItem> items = GamesHandler(gameItems, player);
+            for (JMenuItem item : items) {
                 menu.add(item);
             }
-
-        } else if (menuName.equals("Friends")) 
-        {
+        } else if (menuName.equals("Friends")) {
             String[] friendsItems = {"View Friends List", "Add a Friend", "Remove a Friend"};
-            ArrayList<JMenuItem> items = FriendsHandler(friendsItems,player);
-            for(JMenuItem item : items)
-            {
+            ArrayList<JMenuItem> items = FriendsHandler(friendsItems, player);
+            for (JMenuItem item : items) {
                 menu.add(item);
             }
-            
-        } else if (menuName.equals("Favorites")) 
-        {
-            String[] favoritesItems = {"View Favorites List", "Add a game to Favorites List", "Remove a game from Favorites List"};
-            ArrayList<JMenuItem> items = FavoritesHandler(favoritesItems,player);
-            for(JMenuItem item : items)
-            {
+        } else if (menuName.equals("Favorites")) {
+            String[] favoritesItems = {"View Favorites List", "Add a game to Favorites List",
+                    "Remove a game from Favorites List"};
+            ArrayList<JMenuItem> items = FavoritesHandler(favoritesItems, player);
+            for (JMenuItem item : items) {
                 menu.add(item);
             }
-
-        } else if (menuName.equals("Feedback")) 
-        {
-            String[] feedbackItems = {"Add your rating to a game", "Remove your rating for a game", "Add your review to a game", "Remove your review from a game"};
-            ArrayList<JMenuItem> items = FeedbackHandler(feedbackItems,player);
-            for(JMenuItem item : items)
-            {
+        } else if (menuName.equals("Feedback")) {
+            String[] feedbackItems = {"Add your rating to a game", "Remove your rating for a game",
+                    "Add your review to a game", "Remove your review from a game"};
+            ArrayList<JMenuItem> items = FeedbackHandler(feedbackItems, player);
+            for (JMenuItem item : items) {
                 menu.add(item);
             }
-
-        } else if (menuName.equals("Search")) 
-        {
-            String[] searchItems = {"Search games by genres", "Search games by release year", "Search games by release month", "View game details"};
-            ArrayList<JMenuItem> items = SearchHandler(searchItems,player);
-            for(JMenuItem item : items)
-            {
+        } else if (menuName.equals("Search")) {
+            String[] searchItems = {"Search games by genres", "Search games by release year",
+                    "Search games by release month", "View game details"};
+            ArrayList<JMenuItem> items = SearchHandler(searchItems, player);
+            for (JMenuItem item : items) {
                 menu.add(item);
             }
-
-        } else if (menuName.equals("Wallet"))
-        {
+        } else if (menuName.equals("Wallet")) {
             String[] walletItems = {"View Wallet", "Add Money to Wallet"};
             ArrayList<JMenuItem> items = WalletHandler(walletItems, player);
-            for(JMenuItem item : items)
-            {
+            for (JMenuItem item : items) {
                 menu.add(item);
             }
         }
@@ -171,17 +167,21 @@ import java.util.ArrayList;
         return menu;
     }
 
-    private static ArrayList<JMenuItem> GamesHandler(String[] gameItems, Player player)
-    {
+    /**
+     * Handles menu items related to Games.
+     *
+     * @param gameItems The array of game-related menu items.
+     * @param player    The associated Player object.
+     * @return A list of created JMenuItem objects.
+     */
+    private static ArrayList<JMenuItem> GamesHandler(String[] gameItems, Player player) {
         ArrayList<JMenuItem> list = new ArrayList<>();
         Activity_5Controller_Games gamesListener = new Activity_5Controller_Games(player);
 
-        for (String item : gameItems) 
-        {
+        for (String item : gameItems) {
             JMenuItem menuItem = new JMenuItem(item);
-            
-            switch (item) 
-            {
+
+            switch (item) {
                 case "Play Game":
                     menuItem.setActionCommand("Play Game");
                     break;
@@ -198,24 +198,27 @@ import java.util.ArrayList;
                     System.out.println("Invalid game item: " + item);
             }
             menuItem.addActionListener(gamesListener);
-            //JMenuItem menuItem = createMenuItem(item, player);
             list.add(menuItem);
         }
 
         return list;
     }
 
-    private static ArrayList<JMenuItem> FriendsHandler(String[] friendsItems, Player player)
-    {
+    /**
+     * Handles menu items related to Friends.
+     *
+     * @param friendsItems The array of friends-related menu items.
+     * @param player       The associated Player object.
+     * @return A list of created JMenuItem objects.
+     */
+    private static ArrayList<JMenuItem> FriendsHandler(String[] friendsItems, Player player) {
         ArrayList<JMenuItem> list = new ArrayList<>();
         Activity_5Controller_Friends friendsListener = new Activity_5Controller_Friends(player);
 
-        for (String item : friendsItems) 
-        {
+        for (String item : friendsItems) {
             JMenuItem menuItem = new JMenuItem(item);
 
-            switch (item) 
-            {
+            switch (item) {
                 case "View Friends List":
                     menuItem.setActionCommand("View Friends List");
                     break;
@@ -229,25 +232,28 @@ import java.util.ArrayList;
                     System.out.println("Invalid friends item: " + item);
             }
 
-            //JMenuItem menuItem = createMenuItem(item, player);
             menuItem.addActionListener(friendsListener);
             list.add(menuItem);
         }
-        
+
         return list;
     }
 
-    private static ArrayList<JMenuItem> FavoritesHandler(String[] favoritesItems, Player player)
-    {
+    /**
+     * Handles menu items related to Favorites.
+     *
+     * @param favoritesItems The array of favorites-related menu items.
+     * @param player         The associated Player object.
+     * @return A list of created JMenuItem objects.
+     */
+    private static ArrayList<JMenuItem> FavoritesHandler(String[] favoritesItems, Player player) {
         ArrayList<JMenuItem> list = new ArrayList<>();
         Activity_5Controller_Favorites favoritesListener = new Activity_5Controller_Favorites(player);
 
-        for (String item : favoritesItems) 
-        {
+        for (String item : favoritesItems) {
             JMenuItem menuItem = new JMenuItem(item);
 
-            switch (item) 
-            {
+            switch (item) {
                 case "View Favorites List":
                     menuItem.setActionCommand("View Favorites List");
                     break;
@@ -261,26 +267,28 @@ import java.util.ArrayList;
                     System.out.println("Invalid favorites item: " + item);
             }
 
-            //JMenuItem menuItem = createMenuItem(item, player);
             menuItem.addActionListener(favoritesListener);
             list.add(menuItem);
         }
-        
+
         return list;
     }
 
-    private static ArrayList<JMenuItem> FeedbackHandler(String[] feedbackItems, Player player)
-    {
+    /**
+     * Handles menu items related to Feedback.
+     *
+     * @param feedbackItems The array of feedback-related menu items.
+     * @param player        The associated Player object.
+     * @return A list of created JMenuItem objects.
+     */
+    private static ArrayList<JMenuItem> FeedbackHandler(String[] feedbackItems, Player player) {
         ArrayList<JMenuItem> list = new ArrayList<>();
         Activity_5Controller_FeedBack feedBackListener = new Activity_5Controller_FeedBack(player);
 
-
-        for (String item : feedbackItems) 
-        {
+        for (String item : feedbackItems) {
             JMenuItem menuItem = new JMenuItem(item);
 
-            switch (item) 
-            {
+            switch (item) {
                 case "Add your rating to a game":
                     menuItem.setActionCommand("Add your rating to a game");
                     break;
@@ -296,27 +304,28 @@ import java.util.ArrayList;
                 default:
                     System.out.println("Invalid feedback item: " + item);
             }
-    
-            
-            //JMenuItem menuItem = createMenuItem(item, player);
-            menuItem.addActionListener(feedBackListener);
 
+            menuItem.addActionListener(feedBackListener);
             list.add(menuItem);
         }
-        
+
         return list;
     }
 
-    private static ArrayList<JMenuItem> SearchHandler(String[] searchItems, Player player)
-    {
+    /**
+     * Handles menu items related to Search.
+     *
+     * @param searchItems The array of search-related menu items.
+     * @param player      The associated Player object.
+     * @return A list of created JMenuItem objects.
+     */
+    private static ArrayList<JMenuItem> SearchHandler(String[] searchItems, Player player) {
         ArrayList<JMenuItem> list = new ArrayList<>();
         Activity_5Controller_Search searchListener = new Activity_5Controller_Search(player);
 
-        for (String item : searchItems) 
-        {
+        for (String item : searchItems) {
             JMenuItem menuItem = new JMenuItem(item);
-            switch (item) 
-            {
+            switch (item) {
                 case "Search games by genres":
                     menuItem.setActionCommand("Search games by genres");
                     break;
@@ -332,27 +341,28 @@ import java.util.ArrayList;
                 default:
                     System.out.println("Invalid search item: " + item);
             }
-    
-            //JMenuItem menuItem = createMenuItem(item, player);
 
             menuItem.addActionListener(searchListener);
             list.add(menuItem);
         }
-        
+
         return list;
     }
 
-    private static ArrayList<JMenuItem> WalletHandler(String[] walletItems, Player player)
-    {
+    /**
+     * Handles menu items related to the Wallet.
+     *
+     * @param walletItems The array of wallet-related menu items.
+     * @param player      The associated Player object.
+     * @return A list of created JMenuItem objects.
+     */
+    private static ArrayList<JMenuItem> WalletHandler(String[] walletItems, Player player) {
         ArrayList<JMenuItem> list = new ArrayList<>();
         Activity_5Controller_Wallet walletListener = new Activity_5Controller_Wallet(player);
 
-
-        for (String item : walletItems) 
-        {
+        for (String item : walletItems) {
             JMenuItem menuItem = new JMenuItem(item);
-            switch (item) 
-            {
+            switch (item) {
                 case "View Wallet":
                     menuItem.setActionCommand("View Wallet");
                     break;
@@ -362,34 +372,31 @@ import java.util.ArrayList;
                 default:
                     System.out.println("Invalid wallet item: " + item);
             }
-    
-            //JMenuItem menuItem = createMenuItem(item, player);
 
             menuItem.addActionListener(walletListener);
             list.add(menuItem);
         }
-        
+
         return list;
     }
 
-
-    // a list of helper functions
-    protected static void listContent(ArrayList<String> content, boolean listReccomendation)
-    {
-        if(listReccomendation)
-        {
-            gbc.gridy = recomendationsNextGridYStop;
+    /**
+     * Lists content on the player window based on the provided content and type.
+     *
+     * @param content             The list of content to display.
+     * @param listRecommendation A boolean indicating whether the content is a recommendation.
+     */
+    protected static void listContent(ArrayList<String> content, boolean listRecommendation) {
+        if (listRecommendation) {
+            gbc.gridy = recommendationsNextGridYStop;
         }
-        for (String string : content) 
-        {
+        for (String string : content) {
             JLabel game = new JLabel(string);
             contentPanel.add(game, gbc);
             gbc.gridy++;
         }
-        if(listReccomendation)
-        {
-            recomendationsNextGridYStop = gbc.gridy;
+        if (listRecommendation) {
+            recommendationsNextGridYStop = gbc.gridy;
         }
-
     }
 }

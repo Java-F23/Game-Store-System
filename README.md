@@ -11,12 +11,12 @@ The Game Store System is a Java-based a digital store application, designed to m
 - [Classes](#classes)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
-- [Future Plans](#Future-Plans)
+- [Refactoring](#Refactoring-Reasoning)
 - [Contributing](#contributing)
 
 
 ## Release Notes
-Release Notes Version 2.0
+Release Notes Version 3.0
 
 ## Features
 
@@ -35,8 +35,6 @@ The Game Store System provides the following features:
 The system consists of several Java classes that facilitate the functionality of the application. Here is an overview of the key classes:
 
 - `Game`: Represents information about a game, including its name, description, ratings, reviews, release date, developer, and more. It also handles adding and removing genre tags and applying discounts.
-- `Rate`: Represents a player's rating for a game, including the rating value and the player's name.
-- `Review`: Represents a player's review for a game, including the review text and the player's name.
 - `Player`: Represents a player in the system, including their username, password, email, purchased games, and wallet balance.
 - `Administrator`: Extends the `User` class and represents an administrator with additional capabilities like adding, editing, and removing games, generating reports, and more.
 - `AdministratorDB`: Manages the list of administrators, provides signup and login functionality, and searches for administrators by name.
@@ -46,6 +44,7 @@ The system consists of several Java classes that facilitate the functionality of
 - `Activity_3`: Serves as the Login window
 - `Activity_4`: Serves as the Admin controll windown
 - `Activity_5`: Serves as the Player window
+- `Activity_XController`: for each of the above activities, they have there own controllers to support the MVC design pattern
 
 ## Getting Started
 
@@ -69,23 +68,18 @@ You can use the Game Store System to manage games, players, and administrators w
 
 6- Now, you can do all the above, with a GUI
 
-## Future Plans
-While some bugs went unseen in the previous version, the 2.0 version managed address these probllems.
-However, some were possible to fix, due to the tight time constrains and the adaptation to the swing framework.
-The Future Plans are as follows:
-
-1- Fixing the backend issues were found in the 2.0 version
-
-2- Connect the last remaining GUI components to the backend
-
-3- Re-factor the code to polish the frontend and better desing the code
-
-4- Check the TODO.txt file for more info on the remaining tasks for the current version
+## Refactoring
+- Updated the databases:
+    - while using files as a database would be more effiecent, due to time constrains,they remained as data structures
+    - The data structures where updated to linked list to encource and encourge fast inserion and deletion of object
+- Used Maps instead of the hand-made  key-value objects (Rate, Review class) due to surving the same purpose + more utiliy methods
+- Minimized the loops in the porject and subsituied them with lambda functions and streams for proficiency.
+- Implemented the MVC desgin pattern for ease of future refactoring, modularity, and seperation of concerns. 
 
 ## Contributing
 By:
 - Mahmoud Matar, ID: 900193415, Section: 1
-- ChatGPT: https://chat.openai.com/share/7812a819-91f9-4e10-8151-1a8741febfeb
+- ChatGPT: https://chat.openai.com/share/6e041e90-18a7-4cbb-a6fc-78e686a96f6b
 
 Clone the repository to your local machine:
 

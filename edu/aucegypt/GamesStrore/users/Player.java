@@ -1189,21 +1189,34 @@ public class Player extends User {
     {
         ArrayList<String> recommendations =  new ArrayList<>();
 
-        for(Game game : GamesDB.getGameList())
-        {
-            for(String title : this.purchasedGames)
-            {
-                Game temp = fetchGameByTitle(title);
+        // for(Game game : GamesDB.getGameList())
+        // {
+        //     for(String title : this.purchasedGames)
+        //     {
+        //         Game temp = fetchGameByTitle(title);
 
-                for(String gameTag : temp.getGenreTags())
-                {
-                    if(game.getGenreTags().contains(gameTag) && !game.getGameName().equals(title))
-                    {
-                        recommendations.add(game.getGameName());
-                    }
-                }
-            }
-        }
+        //         for(String gameTag : temp.getGenreTags())
+        //         {
+        //             if(game.getGenreTags().contains(gameTag) && !game.getGameName().equals(title))
+        //             {
+        //                 recommendations.add(game.getGameName());
+        //             }
+        //         }
+        //     }
+        // }
+        
+        GamesDB.getGameList().stream()
+                .flatMap(game -> this.purchasedGames.stream().map(this::fetchGameByTitle))
+                .filter(temp -> temp != null)
+                .flatMap(temp -> temp.getGenreTags().stream())
+                .distinct()
+                .forEach(gameTag -> {
+                    GamesDB.getGameList().stream()
+                        .filter(game -> !this.purchasedGames.contains(game.getGameName()))
+                        .filter(game -> game.getGenreTags().contains(gameTag))
+                        .map(Game::getGameName)
+                        .forEach(recommendations::add);
+                });
 
         
 

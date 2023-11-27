@@ -55,13 +55,23 @@ public class AdministratorDB {
             return null;
         }
 
-        for(Administrator administrator : AdministratorDB.administratorList)
+        Administrator foundAdministrator = AdministratorDB.administratorList.stream()
+        .filter(administrator -> administrator.getUsername().equals(adminstratorName))
+        .findFirst()
+        .orElse(null);
+
+        if(foundAdministrator != null)
         {
-            if(administrator.getUsername().equals(adminstratorName))
-            {
-                return administrator;
-            }
+            return foundAdministrator;
         }
+
+        // for(Administrator administrator : AdministratorDB.administratorList)
+        // {
+        //     if(administrator.getUsername().equals(adminstratorName))
+        //     {
+        //         return administrator;
+        //     }
+        // }
         return null;
     }
     

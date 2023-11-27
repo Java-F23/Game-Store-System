@@ -562,14 +562,17 @@ public class GamesDB
             return false;
         }
 
-        for(Game G : GamesDB.gameList)
-        {
-            if(G.getGameName().equals(game.getGameName()))
-            {
-                found = true;
-                break;
-            }
-        }
+        found = GamesDB.gameList.stream()
+        .anyMatch(g -> g.getGameName().equals(game.getGameName()));
+        
+        // for(Game G : GamesDB.gameList)
+        // {
+        //     if(G.getGameName().equals(game.getGameName()))
+        //     {
+        //         found = true;
+        //         break;
+        //     }
+        // }
 
         if(found)
         {

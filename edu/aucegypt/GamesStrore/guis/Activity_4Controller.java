@@ -22,6 +22,7 @@ import edu.aucegypt.GamesStrore.users.Player;
 public class Activity_4Controller implements ActionListener 
 {
     private static Administrator administrator;
+    String gameTitle = new String();
 
     public static void openAdminWindow(Administrator admin)
     {
@@ -33,7 +34,7 @@ public class Activity_4Controller implements ActionListener
     public void actionPerformed(ActionEvent e) 
     {
         String command = e.getActionCommand();
-        String gameTitle = new String();
+        //String gameTitle = new String();
         Game game;
         switch (command) {
             case "addGameMenuItem":

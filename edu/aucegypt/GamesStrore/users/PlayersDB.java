@@ -55,13 +55,23 @@ public class PlayersDB {
             return null;
         }
 
-        for(Player player : PlayersDB.playerList)
+        Player foundPlayer = PlayersDB.playerList.stream()
+        .filter(player -> player.getUsername().equals(playerName))
+        .findFirst()
+        .orElse(null);
+
+        if(foundPlayer != null)
         {
-            if(player.getUsername().equals(playerName))
-            {
-                return player;
-            }
+            return foundPlayer;
         }
+        // for(Player player : PlayersDB.playerList)
+        // {
+        //     if(player.getUsername().equals(playerName))
+        //     {
+        //         return player;
+        //     }
+        // }
+
         return null;
     }
 
